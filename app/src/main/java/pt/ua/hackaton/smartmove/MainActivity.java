@@ -7,6 +7,7 @@ import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.Manifest;
@@ -48,10 +49,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Hide the top bar
+        if (this.getSupportActionBar() != null) {
+            this.getSupportActionBar().hide();
+        }
+
+        /*
         findViewById(R.id.startCameraBtn).setOnClickListener(view -> {
             Intent myIntent = new Intent(MainActivity.this, CameraActivity.class);
             MainActivity.this.startActivity(myIntent);
         });
+
+         */
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, WorkoutsFragment.class, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("name") // name can be null
+                .commit();
 
     }
 
