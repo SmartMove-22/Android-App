@@ -1,10 +1,10 @@
 package pt.ua.hackaton.smartmove.recyclers;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,32 +12,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import pt.ua.hackaton.smartmove.R;
+import pt.ua.hackaton.smartmove.data.Exercise;
 
-public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecyclerViewAdapter.ViewHolder> {
+public class SuggestedExercisesRecyclerViewAdapter extends RecyclerView.Adapter<SuggestedExercisesRecyclerViewAdapter.ViewHolder> {
 
-    private List<String> mData;
-    private LayoutInflater mInflater;
+    private final List<Exercise> mData;
+    private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public WorkoutRecyclerViewAdapter(Context context, List<String> data) {
+    public SuggestedExercisesRecyclerViewAdapter(Context context, List<Exercise> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
 
     // inflates the row layout from xml when needed
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SuggestedExercisesRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.exercise_recycler_item, parent, false);
-        return new ViewHolder(view);
+        return new SuggestedExercisesRecyclerViewAdapter.ViewHolder(view);
     }
 
     // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        Log.d("TESTE", animal);
-        holder.myTextView.setText(animal);
+    public void onBindViewHolder(SuggestedExercisesRecyclerViewAdapter.ViewHolder holder, int position) {
+        Exercise exercise = mData.get(position);
+        holder.myTextView.setText(exercise.getName());
+        // TODO: Change this by the exercise image name.
+        holder.viewHolderImage.setImageResource(R.drawable.lift_weight);
     }
 
     // total number of rows
@@ -49,11 +51,14 @@ public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecy
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         TextView myTextView;
+        ImageView viewHolderImage;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.tvAnimalName);
+            myTextView = itemView.findViewById(R.id.workoutPlanExerciseNameTxt);
+            viewHolderImage = itemView.findViewById(R.id.workoutPlanExerciseImageView);
             itemView.setOnClickListener(this);
         }
 
@@ -64,7 +69,7 @@ public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecy
     }
 
     // convenience method for getting data at click position
-    String getItem(int id) {
+    Exercise getItem(int id) {
         return mData.get(id);
     }
 
