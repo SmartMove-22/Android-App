@@ -1,5 +1,6 @@
 package pt.ua.hackaton.smartmove;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,8 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import pt.ua.hackaton.smartmove.recyclers.WorkoutRecyclerViewAdapter;
+import pt.ua.hackaton.smartmove.data.Exercise;
+import pt.ua.hackaton.smartmove.recyclers.SuggestedExercisesRecyclerViewAdapter;
+import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,8 +27,6 @@ import pt.ua.hackaton.smartmove.recyclers.WorkoutRecyclerViewAdapter;
  * create an instance of this fragment.
  */
 public class WorkoutsFragment extends Fragment {
-
-    WorkoutRecyclerViewAdapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,11 +69,9 @@ public class WorkoutsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_workouts, container, false);
-
     }
 
     @Override
@@ -80,24 +80,51 @@ public class WorkoutsFragment extends Fragment {
 
 
         // data to populate the RecyclerView with
-        ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("Horse");
-        animalNames.add("Cow");
-        animalNames.add("Camel");
-        animalNames.add("Sheep");
-        animalNames.add("Goat");
+        List<Exercise> exercisesNames = new ArrayList<>();
+        exercisesNames.add(new Exercise(1, null, "Chest Muscles", null, 1,1,300));
+        exercisesNames.add(new Exercise(1, null, "Abdominal Muscles", null, 1,1,300));
+        exercisesNames.add(new Exercise(1, null, "Push Ups", null, 1,1,300));
 
-        // set up the RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.testRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new WorkoutRecyclerViewAdapter(getContext(), animalNames);
-        adapter.setClickListener(new WorkoutRecyclerViewAdapter.ItemClickListener() {
+        setupWorkoutPlanRecyclerView(view, exercisesNames);
+        setupSuggestedExerciseRecyclerView(view, exercisesNames);
+
+    }
+
+    private void setupSuggestedExerciseRecyclerView(View view, List<Exercise> data) {
+
+        RecyclerView recyclerView = view.findViewById(R.id.workoutPlanRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        WorkoutPlanRecyclerViewAdapter adapter = new WorkoutPlanRecyclerViewAdapter(getContext(), data);
+        adapter.setClickListener(new WorkoutPlanRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.d("CLICKED", "CLICKED");
+                if (getActivity() != null) {
+                    Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+                    getActivity().startActivity(myIntent);
+                }
             }
         });
         recyclerView.setAdapter(adapter);
 
     }
+
+    private void setupWorkoutPlanRecyclerView(View view, List<Exercise> data) {
+
+        RecyclerView recyclerView = view.findViewById(R.id.suggestedExercisesRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        SuggestedExercisesRecyclerViewAdapter adapter = new SuggestedExercisesRecyclerViewAdapter(getContext(), data);
+        adapter.setClickListener(new SuggestedExercisesRecyclerViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if (getActivity() != null) {
+                    Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+                    getActivity().startActivity(myIntent);
+                }
+            }
+        });
+        recyclerView.setAdapter(adapter);
+
+    }
+
 }
