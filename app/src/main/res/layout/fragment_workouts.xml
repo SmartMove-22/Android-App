@@ -11,15 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/userGreetingTxt"
-            android:layout_width="wrap_content"
+        <include
+            android:id="@+id/workoutFragmentTopBar"
+            layout="@layout/app_top_bar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/poppins"
-            android:text="Hello Hugo"
-            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,12 +25,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins"
             android:text="Today Workout Plan"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userGreetingTxt2" />
+            app:layout_constraintTop_toBottomOf="@+id/workoutFragmentTopBar" />
 
         <TextView
             android:id="@+id/suggestedExercisesTextView"
@@ -46,18 +43,6 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dailyWorkoutPlanConstraintLayout" />
-
-        <TextView
-            android:id="@+id/userGreetingTxt2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:fontFamily="@font/poppins_bold"
-            android:text="Welcome back"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userGreetingTxt" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/dailyWorkoutPlanConstraintLayout"
