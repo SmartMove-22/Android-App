@@ -1,5 +1,6 @@
 package pt.ua.hackaton.smartmove;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -97,7 +98,10 @@ public class WorkoutsFragment extends Fragment {
         adapter.setClickListener(new WorkoutPlanRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.d("CLICKED", "CLICKED");
+                if (getActivity() != null) {
+                    Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+                    getActivity().startActivity(myIntent);
+                }
             }
         });
         recyclerView.setAdapter(adapter);
@@ -113,7 +117,10 @@ public class WorkoutsFragment extends Fragment {
         adapter.setClickListener(new SuggestedExercisesRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.d("CLICKED", "CLICKED");
+                if (getActivity() != null) {
+                    Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+                    getActivity().startActivity(myIntent);
+                }
             }
         });
         recyclerView.setAdapter(adapter);
