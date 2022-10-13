@@ -18,8 +18,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/todayWorkoutTextView"
@@ -33,61 +32,56 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topBarComponent" />
 
+        <TextView
+            android:id="@+id/suggestedExercisesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins"
+            android:text="Suggested Exercises"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dailyWorkoutPlanConstraintLayout" />
 
-                <TextView
-                    android:id="@+id/suggestedExercisesTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppins"
-                    android:text="Suggested Exercises"
-                    android:textColor="@color/black" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dailyWorkoutPlanConstraintLayout"
+            android:layout_width="364dp"
+            android:layout_height="220dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/todayWorkoutTextView">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/dailyWorkoutPlanConstraintLayout"
-                    android:layout_width="364dp"
-                    android:layout_height="220dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/workoutPlanRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="10dp"
+                tools:layout_editor_absoluteY="10dp" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/workoutPlanRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:layout_editor_absoluteX="10dp"
-                        tools:layout_editor_absoluteY="10dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/suggestedExercisesConstraintLayout"
+            android:layout_width="364dp"
+            android:layout_height="245dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/suggestedExercisesTextView">
 
-                <TextView
-                    android:id="@+id/todayWorkoutTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppins"
-                    android:text="Today Workout Plan"
-                    android:textColor="@color/black" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/suggestedExercisesConstraintLayout"
-                    android:layout_width="364dp"
-                    android:layout_height="245dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/suggestedExercisesRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:layout_editor_absoluteX="1dp"
-                        tools:layout_editor_absoluteY="1dp" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
-        </ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/suggestedExercisesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="1dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
