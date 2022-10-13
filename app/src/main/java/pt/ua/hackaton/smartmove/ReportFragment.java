@@ -86,6 +86,10 @@ public class ReportFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         List<LocalDateTime> next7DaysDates = new ArrayList<>();
+        List<Exercise> exercisesNames = new ArrayList<>();
+
+        exercisesNames.add(new Exercise(1, null, "Chest Muscles", null, 1,1,300));
+        exercisesNames.add(new Exercise(1, null, "Abdominal Muscles", null, 1,1,300));
 
         for (int i = 0; i < 7; i++) {
 
@@ -97,6 +101,7 @@ public class ReportFragment extends Fragment {
         }
 
         setupDaysRecyclerView(view, next7DaysDates);
+        setupWorkoutPlanRecyclerView(view, exercisesNames);
 
     }
 
@@ -106,6 +111,21 @@ public class ReportFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         DaysOfWeekRecyclerViewAdapter adapter = new DaysOfWeekRecyclerViewAdapter(getContext(), data);
+
+        adapter.setClickListener((view1, position) -> {
+            Toast.makeText(getContext(), "Clicked On item " + position, Toast.LENGTH_SHORT).show();
+        });
+
+        recyclerView.setAdapter(adapter);
+
+    }
+
+    private void setupWorkoutPlanRecyclerView(View view, List<Exercise> data) {
+
+        RecyclerView recyclerView = view.findViewById(R.id.reportExercisesProgramRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        WorkoutPlanRecyclerViewAdapter adapter = new WorkoutPlanRecyclerViewAdapter(getContext(), data);
 
         adapter.setClickListener((view1, position) -> {
             Toast.makeText(getContext(), "Clicked On item " + position, Toast.LENGTH_SHORT).show();

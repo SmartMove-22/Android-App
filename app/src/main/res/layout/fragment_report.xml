@@ -39,4 +39,225 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="345dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="30dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportDaysOfWeekRecyclerView">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dailyReportCaloriesConstraintLayout"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/dailyReportCaloriesPlaceholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="288"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/dailyReportCaloriesImageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyReportCaloriesTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="-4dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Calories"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toEndOf="@+id/dailyReportCaloriesImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/dailyReportCaloriesPlaceholder" />
+
+                <ImageView
+                    android:id="@+id/dailyReportCaloriesImageView"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/app_icon_black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dailyReportPerformanceConstraintLayout"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="-4dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toEndOf="@+id/dailyReportCaloriesConstraintLayout"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/dailyReportPerformancePlaceholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="+50%"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/dailyReportPerformanceImageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyReportPerformanceTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="-4dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Performance"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toEndOf="@+id/dailyReportPerformanceImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/dailyReportPerformancePlaceholder" />
+
+                <ImageView
+                    android:id="@+id/dailyReportPerformanceImageView"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/app_icon_black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dailyReportCorrectnessConstraintLayout"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="-8dp"
+                app:layout_constraintStart_toStartOf="@+id/dailyReportCaloriesConstraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/dailyReportCaloriesConstraintLayout">
+
+                <TextView
+                    android:id="@+id/dailyReportCorrectnessPlaceholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="-50%"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/dailyReportCorrectnessImageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyReportCorrectnessTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="-4dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Correctness"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toEndOf="@+id/dailyReportCorrectnessImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/dailyReportCorrectnessPlaceholder" />
+
+                <ImageView
+                    android:id="@+id/dailyReportCorrectnessImageView"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/app_icon_black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/dailyReportImprovementConstraintLayout"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="-8dp"
+                app:layout_constraintStart_toStartOf="@+id/dailyReportPerformanceConstraintLayout"
+                app:layout_constraintTop_toBottomOf="@+id/dailyReportPerformanceConstraintLayout">
+
+                <TextView
+                    android:id="@+id/dailyReportImprovementPlaceholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="+10%"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/dailyReportImprovementImageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyReportImprovementTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="-4dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Improvement"
+                    android:textSize="11sp"
+                    app:layout_constraintStart_toEndOf="@+id/dailyReportImprovementImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/dailyReportImprovementPlaceholder" />
+
+                <ImageView
+                    android:id="@+id/dailyReportImprovementImageView"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/app_icon_black" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins"
+        android:text="Your Program"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reportExercisesProgramRecyclerView"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
