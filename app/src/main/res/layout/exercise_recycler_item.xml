@@ -34,7 +34,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/workoutPlanExerciseImageView"
+                android:id="@+id/loginMainCardImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -53,7 +53,7 @@
                 android:textColor="@color/white"
                 android:textSize="26sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/workoutPlanExerciseImageView" />
+                app:layout_constraintTop_toTopOf="@+id/loginMainCardImageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
