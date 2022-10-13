@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
             String username = usernameEditText.getText().toString();
             String password = passwordEditText.getText().toString();
 
-            if (username.equals("Hugo1307") && password.equals("hey")) {
+            if (username.equals("Hugo") && password.equals("hey")) {
 
                 Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
 
