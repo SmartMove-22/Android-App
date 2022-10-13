@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import pt.ua.hackaton.smartmove.utils.ApiUtils;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -33,20 +35,31 @@ public class LoginActivity extends AppCompatActivity {
             String username = usernameEditText.getText().toString();
             String password = passwordEditText.getText().toString();
 
-            if (username.equals("Hugo1307") && password.equals("hey")) {
-
-                Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
-
-                Intent myIntent = new Intent(this, MainActivity.class);
-                this.startActivity(myIntent);
-                finish();
-
-            } else {
-                Toast.makeText(this, "Wrong Credentials!", Toast.LENGTH_SHORT).show();
+            if (username.trim().isEmpty() || password.trim().isEmpty()) {
+                Toast.makeText(
+                        this,
+                        "Please enter all credentials!",
+                        Toast.LENGTH_SHORT).show();
+                return;
             }
 
+            login(username, password);
         });
 
+    }
+
+    private void login(final String username, final String password) {
+        if (ApiUtils.authenticate(username, password)) {
+
+            Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
+
+            Intent myIntent = new Intent(this, MainActivity.class);
+            this.startActivity(myIntent);
+            finish();
+
+        } else {
+            Toast.makeText(this, "Wrong Credentials!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
