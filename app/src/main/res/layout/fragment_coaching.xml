@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CoachingFragment">
+
+
+    <Button
+        android:id="@+id/quitCameraBtn2"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/app_button_drawable"
+        android:backgroundTint="@color/yellow"
+        android:fontFamily="@font/poppins"
+        android:text="Search"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/searchForCoachEditText"
+        app:layout_constraintStart_toEndOf="@+id/searchForCoachEditText" />
+
+    <Button
+        android:id="@+id/quitCameraBtn3"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/app_button_drawable"
+        android:backgroundTint="@color/yellow"
+        android:fontFamily="@font/poppins"
+        android:text="Edit"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/coatchUsernamePlaceholder2"
+        app:layout_constraintTop_toBottomOf="@+id/coatchUsernamePlaceholder2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins"
+        android:text="Search For Coaches"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workoutFragmentTopBar" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/poppins"
+        android:text="Your Coach"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchForCoachEditText" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/poppins"
+        android:text="Workout Plan"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <TextView
+        android:id="@+id/coatchUsernamePlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/poppins"
+        android:text="Hugo"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+    <TextView
+        android:id="@+id/coatchUsernamePlaceholder2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/poppins_light"
+        android:text="hugogoncalves13@ua.pt"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/coatchUsernamePlaceholder"
+        app:layout_constraintTop_toBottomOf="@+id/coatchUsernamePlaceholder" />
+
+    <include
+        android:id="@+id/workoutFragmentTopBar"
+        layout="@layout/app_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/searchForCoachEditText"
+        style="@style/editTextStyle"
+        android:layout_width="188dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Search"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="124dp"
+        android:layout_height="124dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="30dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/loginMainCardImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/lift_weight" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/coachingFragWorkoutPlanRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,6 +39,13 @@ public class MainActivity extends AppCompatActivity {
                         .addToBackStack("workout_fragment")
                         .commit();
                 return true;
+            } else if (item.getItemId() == R.id.coaching_menu_item) {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView, CoachingFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack("coaching_fragment")
+                        .commit();
+                return true;
             } else if (item.getItemId() == R.id.statistics_menu_item) {
                 fragmentManager.beginTransaction()
                         .replace(R.id.fragmentContainerView, ReportFragment.class, null)
