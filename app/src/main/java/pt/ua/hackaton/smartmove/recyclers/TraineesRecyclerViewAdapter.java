@@ -1,15 +1,21 @@
 package pt.ua.hackaton.smartmove.recyclers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import pt.ua.hackaton.smartmove.CoachAddExercisesFragment;
+import pt.ua.hackaton.smartmove.CoachTraineeOverviewFragment;
 import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.Trainee;
 
@@ -51,6 +57,8 @@ public class TraineesRecyclerViewAdapter extends RecyclerView.Adapter<TraineesRe
 
         TextView traineeUsernameTextView;
         TextView traineeEmailTextView;
+        Button manageTraineeButton;
+        Button addExercisesTraineeButton;
 
         ViewHolder(View itemView) {
 
@@ -58,6 +66,22 @@ public class TraineesRecyclerViewAdapter extends RecyclerView.Adapter<TraineesRe
 
             traineeUsernameTextView = itemView.findViewById(R.id.traineeUsernamePlaceholder);
             traineeEmailTextView = itemView.findViewById(R.id.traineeEmailPlaceholder);
+            manageTraineeButton = itemView.findViewById(R.id.manageTraineeBtn);
+            addExercisesTraineeButton = itemView.findViewById(R.id.addExercisesTraineeBtn);
+
+            FragmentManager fragmentManager = ((AppCompatActivity) itemView.getContext()).getSupportFragmentManager();
+
+            addExercisesTraineeButton.setOnClickListener(view -> fragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, CoachAddExercisesFragment.class, null)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("add_trainees_exercises_fragment")
+                    .commit());
+
+            manageTraineeButton.setOnClickListener(view -> fragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, CoachTraineeOverviewFragment.class, null)
+                    .setReorderingAllowed(true)
+                    .addToBackStack("manage_trainee_fragment")
+                    .commit());
 
             itemView.setOnClickListener(this);
 

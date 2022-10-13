@@ -18,7 +18,7 @@
         app:layout_constraintTop_toBottomOf="@+id/traineeUsernamePlaceholder" />
 
     <Button
-        android:id="@+id/quitCameraBtn4"
+        android:id="@+id/manageTraineeBtn"
         android:layout_width="90dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
@@ -27,7 +27,22 @@
         android:fontFamily="@font/poppins"
         android:text="Manage"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="14sp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/traineeEmailPlaceholder"
+        app:layout_constraintTop_toBottomOf="@+id/traineeEmailPlaceholder" />
+
+    <Button
+        android:id="@+id/addExercisesTraineeBtn"
+        android:layout_width="114dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/app_button_drawable"
+        android:backgroundTint="@color/yellow"
+        android:fontFamily="@font/poppins"
+        android:text="Add Exercises"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/traineeEmailPlaceholder"
         app:layout_constraintTop_toBottomOf="@+id/traineeEmailPlaceholder" />
 
@@ -49,13 +64,12 @@
         android:id="@+id/cardView"
         android:layout_width="124dp"
         android:layout_height="124dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:elevation="10dp"
         app:cardCornerRadius="30dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
