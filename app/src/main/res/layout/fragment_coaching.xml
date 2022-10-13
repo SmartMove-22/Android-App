@@ -45,7 +45,7 @@
         android:text="Search For Coaches"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/workoutFragmentTopBar" />
+        app:layout_constraintTop_toBottomOf="@+id/topBarComponent" />
 
     <TextView
         android:id="@+id/textView4"
@@ -98,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/coatchUsernamePlaceholder" />
 
     <include
-        android:id="@+id/workoutFragmentTopBar"
+        android:id="@+id/topBarComponent"
         layout="@layout/app_top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

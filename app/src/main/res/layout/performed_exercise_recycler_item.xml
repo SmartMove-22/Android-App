@@ -89,7 +89,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/performance_small_icon" />
+                    app:srcCompat="@drawable/performance_small_yellow_icon" />
 
                 <TextView
                     android:id="@+id/textView17"
@@ -132,7 +132,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/calories_small_icon" />
+                    app:srcCompat="@drawable/calories_small_yellow_icon" />
 
                 <TextView
                     android:id="@+id/textView18"
@@ -177,7 +177,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/correctness_small_icon" />
+                    app:srcCompat="@drawable/correctness_small_yellow_icon" />
 
                 <TextView
                     android:id="@+id/textView19"

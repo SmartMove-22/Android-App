@@ -1,19 +1,15 @@
 package pt.ua.hackaton.smartmove;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -46,7 +42,14 @@ public class CameraActivity extends AppCompatActivity {
 
         setupCamera();
 
-        findViewById(R.id.quitCameraBtn).setOnClickListener(view -> finish());
+        findViewById(R.id.cameraSaveExerciseBtn).setOnClickListener(view -> {
+
+            Intent myIntent = new Intent(this, ExerciseReportActivity.class);
+            this.startActivity(myIntent);
+            finish();
+
+        });
+
 
     }
 
