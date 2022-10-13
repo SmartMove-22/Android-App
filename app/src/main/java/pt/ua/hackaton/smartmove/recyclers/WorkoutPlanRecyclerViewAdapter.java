@@ -58,7 +58,7 @@ public class WorkoutPlanRecyclerViewAdapter extends RecyclerView.Adapter<Workout
         ViewHolder(View itemView) {
             super(itemView);
             myTextView = itemView.findViewById(R.id.workoutPlanExerciseNameTxt);
-            viewHolderImage = itemView.findViewById(R.id.workoutPlanExerciseImageView);
+            viewHolderImage = itemView.findViewById(R.id.loginMainCardImageView);
             itemView.setOnClickListener(this);
         }
 
