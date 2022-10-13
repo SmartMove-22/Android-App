@@ -2,17 +2,19 @@ package pt.ua.hackaton.smartmove.utils;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.data.LoginRequest;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiUtils {
 
-    private static final String API_BASE_URI = "";
+    private static final String API_BASE_URI = "http://20.163.184.110";
     private static final Retrofit retrofit = new Retrofit.Builder()
-            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(API_BASE_URI)
             .build();
 
@@ -20,7 +22,7 @@ public class ApiUtils {
 
     public static boolean authenticate(String username, String password) {
         // TODO correct response type
-        Call response = apiService.login(new LoginRequest(username, password));
+        Call<Response<ResponseBody>> response = apiService.login(new LoginRequest(username, password));
         // TODO do something with response
         return true;
     }
