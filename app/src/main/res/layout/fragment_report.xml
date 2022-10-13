@@ -9,7 +9,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <include
-        android:id="@+id/workoutFragmentTopBar"
+        android:id="@+id/topBarComponent"
         layout="@layout/app_top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:text="Your Report"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/workoutFragmentTopBar" />
+        app:layout_constraintTop_toBottomOf="@+id/topBarComponent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reportDaysOfWeekRecyclerView"
