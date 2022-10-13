@@ -47,7 +47,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/dailyWorkoutPlanConstraintLayout"
             android:layout_width="364dp"
-            android:layout_height="245dp"
+            android:layout_height="220dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"

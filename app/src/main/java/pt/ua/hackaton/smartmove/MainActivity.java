@@ -1,45 +1,11 @@
 package pt.ua.hackaton.smartmove;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageAnalysis;
-import androidx.camera.core.ImageProxy;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.LifecycleOwner;
-
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.Task;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.mlkit.vision.common.InputImage;
-import com.google.mlkit.vision.pose.Pose;
-import com.google.mlkit.vision.pose.PoseDetection;
-import com.google.mlkit.vision.pose.PoseDetector;
-import com.google.mlkit.vision.pose.PoseLandmark;
-import com.google.mlkit.vision.pose.accurate.AccuratePoseDetectorOptions;
-import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.concurrent.ExecutionException;
-
-import pt.ua.hackaton.smartmove.utils.BitmapUtils;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,14 +25,38 @@ public class MainActivity extends AppCompatActivity {
             Intent myIntent = new Intent(MainActivity.this, CameraActivity.class);
             MainActivity.this.startActivity(myIntent);
         });
-
-         */
+        */
 
         FragmentManager fragmentManager = getSupportFragmentManager();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+
+            if (item.getItemId() == R.id.workouts_menu_item) {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView, WorkoutsFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack("workout_fragment")
+                        .commit();
+                return true;
+            } else if (item.getItemId() == R.id.statistics_menu_item) {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView, ReportFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack("report_fragment")
+                        .commit();
+                return true;
+            }
+
+            return false;
+
+        });
+
+        // Set Initial Fragment
         fragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView, WorkoutsFragment.class, null)
                 .setReorderingAllowed(true)
-                .addToBackStack("name") // name can be null
+                .addToBackStack("report_fragment")
                 .commit();
 
     }
