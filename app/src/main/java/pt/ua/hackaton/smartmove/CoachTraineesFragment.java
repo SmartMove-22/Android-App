@@ -17,15 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pt.ua.hackaton.smartmove.data.Exercise;
-import pt.ua.hackaton.smartmove.recyclers.SuggestedExercisesRecyclerViewAdapter;
+import pt.ua.hackaton.smartmove.data.Trainee;
+import pt.ua.hackaton.smartmove.recyclers.TraineesRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CoachingFragment#newInstance} factory method to
+ * Use the {@link CoachTraineesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CoachingFragment extends Fragment {
+public class CoachTraineesFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,7 +37,7 @@ public class CoachingFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public CoachingFragment() {
+    public CoachTraineesFragment() {
         // Required empty public constructor
     }
 
@@ -46,11 +47,11 @@ public class CoachingFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CoachingFragment.
+     * @return A new instance of fragment CoachTraineesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CoachingFragment newInstance(String param1, String param2) {
-        CoachingFragment fragment = new CoachingFragment();
+    public static CoachTraineesFragment newInstance(String param1, String param2) {
+        CoachTraineesFragment fragment = new CoachTraineesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -71,7 +72,7 @@ public class CoachingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_coaching, container, false);
+        return inflater.inflate(R.layout.fragment_coach_trainees, container, false);
     }
 
     @Override
@@ -80,29 +81,28 @@ public class CoachingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // data to populate the RecyclerView with
-        List<Exercise> exercisesNames = new ArrayList<>();
-        exercisesNames.add(new Exercise(1, null, "Chest Muscles", null, 1,1,300));
-        exercisesNames.add(new Exercise(1, null, "Abdominal Muscles", null, 1,1,300));
-        exercisesNames.add(new Exercise(1, null, "Push Ups", null, 1,1,300));
+        List<Trainee> trainees = new ArrayList<>();
+        trainees.add(new Trainee("Hugo", "hugogoncalves13@ua.pt", "", null, null,null,null));
+        trainees.add(new Trainee("Daniela", "daniela@ua.pt", "", null, null,null,null));
+        trainees.add(new Trainee("Martinho", "martinho@ua.pt", "", null, null,null,null));
 
-        setupWorkoutPlanRecyclerView(view, exercisesNames);
+        setupTraineePlanRecyclerView(view, trainees);
 
     }
 
-    private void setupWorkoutPlanRecyclerView(View view, List<Exercise> data) {
+    private void setupTraineePlanRecyclerView(View view, List<Trainee> data) {
 
-        RecyclerView recyclerView = view.findViewById(R.id.coachingFragWorkoutPlanRecyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.coachTraineesRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        WorkoutPlanRecyclerViewAdapter adapter = new WorkoutPlanRecyclerViewAdapter(getContext(), data);
-        adapter.setClickListener(new WorkoutPlanRecyclerViewAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                if (getActivity() != null) {
-                    Intent myIntent = new Intent(getActivity(), CameraActivity.class);
-                    getActivity().startActivity(myIntent);
-                }
+
+        TraineesRecyclerViewAdapter adapter = new TraineesRecyclerViewAdapter(getContext(), data);
+        adapter.setClickListener((view1, position) -> {
+            if (getActivity() != null) {
+                Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+                getActivity().startActivity(myIntent);
             }
         });
+
         recyclerView.setAdapter(adapter);
 
     }

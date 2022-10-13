@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else if (item.getItemId() == R.id.coaching_menu_item) {
                 fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView, CoachingFragment.class, null)
+                        .replace(R.id.fragmentContainerView, CoachTraineesFragment.class, null)
                         .setReorderingAllowed(true)
                         .addToBackStack("coaching_fragment")
                         .commit();
