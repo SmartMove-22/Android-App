@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +18,13 @@ import java.util.List;
 
 import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.recyclers.SuggestedExercisesRecyclerViewAdapter;
-import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link WorkoutsFragment#newInstance} factory method to
+ * Use the {@link CoachAddExercisesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WorkoutsFragment extends Fragment {
+public class CoachAddExercisesFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,7 +35,7 @@ public class WorkoutsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public WorkoutsFragment() {
+    public CoachAddExercisesFragment() {
         // Required empty public constructor
     }
 
@@ -47,11 +45,11 @@ public class WorkoutsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment WorkoutsFragment.
+     * @return A new instance of fragment CoachAddExercisesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static WorkoutsFragment newInstance(String param1, String param2) {
-        WorkoutsFragment fragment = new WorkoutsFragment();
+    public static CoachAddExercisesFragment newInstance(String param1, String param2) {
+        CoachAddExercisesFragment fragment = new CoachAddExercisesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,15 +67,15 @@ public class WorkoutsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_workouts, container, false);
+        return inflater.inflate(R.layout.fragment_coach_add_exercises, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         // data to populate the RecyclerView with
         List<Exercise> exercisesNames = new ArrayList<>();
@@ -85,33 +83,14 @@ public class WorkoutsFragment extends Fragment {
         exercisesNames.add(new Exercise(1, null, "Abdominal Muscles", null, 1,1,300));
         exercisesNames.add(new Exercise(1, null, "Push Ups", null, 1,1,300));
 
-        setupWorkoutPlanRecyclerView(view, exercisesNames);
         setupSuggestedExerciseRecyclerView(view, exercisesNames);
-
-    }
-
-    private void setupWorkoutPlanRecyclerView(View view, List<Exercise> data) {
-
-        RecyclerView recyclerView = view.findViewById(R.id.workoutPlanRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        WorkoutPlanRecyclerViewAdapter adapter = new WorkoutPlanRecyclerViewAdapter(getContext(), data);
-        adapter.setClickListener(new WorkoutPlanRecyclerViewAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                if (getActivity() != null) {
-                    Intent myIntent = new Intent(getActivity(), CameraActivity.class);
-                    getActivity().startActivity(myIntent);
-                }
-            }
-        });
-        recyclerView.setAdapter(adapter);
 
     }
 
     private void setupSuggestedExerciseRecyclerView(View view, List<Exercise> data) {
 
-        RecyclerView recyclerView = view.findViewById(R.id.suggestedExercisesRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        RecyclerView recyclerView = view.findViewById(R.id.coachAvailableExercisesRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         SuggestedExercisesRecyclerViewAdapter adapter = new SuggestedExercisesRecyclerViewAdapter(getContext(), data);
         adapter.setClickListener(new SuggestedExercisesRecyclerViewAdapter.ItemClickListener() {
@@ -123,6 +102,7 @@ public class WorkoutsFragment extends Fragment {
                 }
             }
         });
+
         recyclerView.setAdapter(adapter);
 
     }

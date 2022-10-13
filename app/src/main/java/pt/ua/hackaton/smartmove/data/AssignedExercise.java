@@ -1,6 +1,6 @@
 package pt.ua.hackaton.smartmove.data;
 
-public class AssignedExercise {
+public class AssignedExercise extends Exercise {
 
     private final Trainee trainee;
     private final boolean completed;
@@ -10,7 +10,8 @@ public class AssignedExercise {
     private final double caloriesBurn;
     private final int grade;
 
-    public AssignedExercise(Trainee trainee, boolean completed, double correctness, double performance, double improvement, double caloriesBurn, int grade) {
+    public AssignedExercise(long id, Coach coach, String name, Category category, int sets, int reps, double calories, Trainee trainee, boolean completed, double correctness, double performance, double improvement, double caloriesBurn, int grade) {
+        super(id, coach, name, category, sets, reps, calories);
         this.trainee = trainee;
         this.completed = completed;
         this.correctness = correctness;
