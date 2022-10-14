@@ -21,10 +21,6 @@ public class WorkoutPlanRecyclerViewAdapter extends RecyclerView.Adapter<Workout
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    public WorkoutPlanRecyclerViewAdapter(Context context) {
-        this.mInflater = LayoutInflater.from(context);
-    }
-
     // data is passed into the constructor
     public WorkoutPlanRecyclerViewAdapter(Context context, List<? extends Exercise> data) {
         this.mInflater = LayoutInflater.from(context);

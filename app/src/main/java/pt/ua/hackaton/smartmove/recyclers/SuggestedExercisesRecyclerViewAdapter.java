@@ -16,16 +16,12 @@ import pt.ua.hackaton.smartmove.data.Exercise;
 
 public class SuggestedExercisesRecyclerViewAdapter extends RecyclerView.Adapter<SuggestedExercisesRecyclerViewAdapter.ViewHolder> {
 
-    private List<Exercise> mData;
+    private List<? extends Exercise> mData;
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    public SuggestedExercisesRecyclerViewAdapter(Context context) {
-        this.mInflater = LayoutInflater.from(context);
-    }
-
     // data is passed into the constructor
-    public SuggestedExercisesRecyclerViewAdapter(Context context, List<Exercise> data) {
+    public SuggestedExercisesRecyclerViewAdapter(Context context, List<? extends Exercise> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }

@@ -27,6 +27,7 @@ import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import pt.ua.hackaton.smartmove.R;
@@ -86,7 +87,9 @@ public class CameraUtils {
 
                     TextView correctnessTextView = ((AppCompatActivity) context).findViewById(R.id.cameraCorrectnessCardText);
                     TextView progressTextView = ((AppCompatActivity) context).findViewById(R.id.cameraProgressCardText);
+                    TextView cameraRepetitionsCounterTextView = ((AppCompatActivity) context).findViewById(R.id.cameraRepetitionsCounterTextView);
 
+                    AtomicInteger repetitionsCounter = new AtomicInteger(0);
 
                     poseDetector.process(image)
                             .addOnSuccessListener(
@@ -102,12 +105,14 @@ public class CameraUtils {
 
                                         Log.d("EXERCISE_DATA", "Sending request with landmarks " + String.valueOf(landmarkPointList));
 
+                                        CameraStatsViewModel cameraStatsViewModel = new ViewModelProvider((AppCompatActivity) context).get(CameraStatsViewModel.class);
+
                                         timeElapsed[0] = System.currentTimeMillis();
 
-
                                         AtomicBoolean isInFirstHalt = new AtomicBoolean(false);
+
                                         long totalTime = System.currentTimeMillis() - initialTime;
-                                        ExerciseDataRequest exerciseDataRequest = new ExerciseDataRequest(totalTime, isInFirstHalt.get(), "squat", landmarkPointList);
+                                        ExerciseDataRequest exerciseDataRequest = new ExerciseDataRequest(totalTime, cameraStatsViewModel.getExerciseHalf().getValue(), "squat", landmarkPointList);
 
                                         Call<ExerciseAnalysisResponse> call = ApiUtils.submitExerciseDataForAnalysis(1, exerciseDataRequest);
 
@@ -121,24 +126,43 @@ public class CameraUtils {
                                                     if (response.body() != null) {
                                                         // Toast.makeText(context.getApplicationContext(), String.valueOf(response.body().getCorrectness()), Toast.LENGTH_SHORT).show();
 
-                                                        CameraStatsViewModel cameraStatsViewModel = new ViewModelProvider((AppCompatActivity) context).get(CameraStatsViewModel.class);
 
                                                         cameraStatsViewModel.addMeasurementCount(1);
                                                         cameraStatsViewModel.addMeasurementToTotalCorrectness(response.body().getCorrectness());
                                                         cameraStatsViewModel.getTotalTime().setValue((double)totalTime);
 
-                                                        isInFirstHalt.set(response.body().isFirstHalf());
+                                                        cameraStatsViewModel.setExerciseHalf(response.body().isFirstHalf());
 
                                                         if (response.body().isFinishedRepetition()) {
                                                             Toast.makeText(context, "Finished Repetition", Toast.LENGTH_SHORT).show();
                                                             cameraStatsViewModel.incrementReps();
                                                             //cameraStatsViewModel.updateRepTimes((double)System.currentTimeMillis());
+
+                                                            cameraStatsViewModel.addRepetition(1);
+                                                            cameraRepetitionsCounterTextView.setText(cameraStatsViewModel.getRepetitionsCount().getValue() + " reps");
+
+                                                            Toast.makeText(context, String.format("Correctness: %s; Progress: %s", response.body().getCorrectness(), response.body().getProgress()), Toast.LENGTH_SHORT).show();
+
                                                         }
+
+                                                        double correctnessValue = Math.round(response.body().getCorrectness() * 100);
 
                                                         BitmapUtils.markPointRed(rotatedMutableBitmap, pose.getPoseLandmark(response.body().getWorstMiddleLandmark()));
 
-                                                        correctnessTextView.setText(Math.round(response.body().getCorrectness() * 100) + "%");
-                                                        progressTextView.setText(Math.round(response.body().getProgress() * 100) + "%");
+                                                        correctnessTextView.setText(String.valueOf(correctnessValue));
+
+                                                        if (correctnessValue >= 30) {
+
+                                                            double progress = response.body().getProgress()/2;
+
+                                                            if (!cameraStatsViewModel.getExerciseHalf().getValue()) {
+                                                                progress += 0.5;
+                                                            }
+
+                                                            double progressNormalized = Math.round(progress * 100);
+                                                            progressTextView.setText(progressNormalized + "%");
+
+                                                        }
 
                                                         Log.d("EXERCISE_DATA", "Returned Response " + response.body());
                                                     }

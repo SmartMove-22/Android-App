@@ -8,6 +8,7 @@ public class CameraStatsViewModel extends ViewModel {
     MutableLiveData<Long> totalMeasurementsCount = new MutableLiveData<>(0l);
     MutableLiveData<Double> totalCorrectness = new MutableLiveData<>(0d);
     MutableLiveData<Double> totalCalories = new MutableLiveData<>(0d);
+
     MutableLiveData<Double> totalTime = new MutableLiveData<>(0d);
     MutableLiveData<Double> pacing = new MutableLiveData<>(0d);
     MutableLiveData<Integer> performance = new MutableLiveData<>(0);
@@ -17,6 +18,10 @@ public class CameraStatsViewModel extends ViewModel {
     private Double highestRepTime;
     private Double timeAtNewRep = 0d;
     private int reps = 0;
+
+    MutableLiveData<Integer> repetitionsCount = new MutableLiveData<>(0);
+    MutableLiveData<Boolean> exerciseHalf = new MutableLiveData<>(false);
+
 
     public MutableLiveData<Long> getTotalMeasurementsCount() {
         return totalMeasurementsCount;
@@ -29,6 +34,7 @@ public class CameraStatsViewModel extends ViewModel {
     public MutableLiveData<Double> getTotalCalories() {
         return totalCalories;
     }
+
 
     public MutableLiveData<Double> getTotalTime() { return totalTime; }
 
@@ -45,7 +51,16 @@ public class CameraStatsViewModel extends ViewModel {
 
     public void updateTotalTime(double time) {
         totalTime.setValue(time);
-        if (reps > 0) setAverage.setValue(time/reps);
+        if (reps > 0) setAverage.setValue(time / reps);
+    }
+
+    public MutableLiveData<Integer> getRepetitionsCount() {
+        return repetitionsCount;
+    }
+
+    public MutableLiveData<Boolean> getExerciseHalf() {
+        return exerciseHalf;
+
     }
 
     public void addMeasurementCount(int measurementCount) {
@@ -65,5 +80,13 @@ public class CameraStatsViewModel extends ViewModel {
             lowestRepTime = repTime;
         if (highestRepTime == null || repTime > highestRepTime)
             highestRepTime = repTime;
+    }
+
+    public void addRepetition(Integer repetition) {
+        this.repetitionsCount.setValue(this.repetitionsCount.getValue()+1);
+    }
+
+    public void setExerciseHalf(Boolean exerciseHalf) {
+        this.exerciseHalf.setValue(exerciseHalf);
     }
 }

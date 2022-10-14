@@ -60,7 +60,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="50%"
+                        android:text="0%"
                         android:textAlignment="center"
                         android:textColor="#000000"
                         android:textSize="16sp"
@@ -114,7 +114,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="50%"
+                        android:text="0%"
                         android:textAlignment="center"
                         android:textColor="#000000"
                         android:textSize="16sp"
@@ -138,31 +138,20 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/cameraRepetitionsCardRepetitions"
+                        android:id="@+id/cameraRepetitionsCounterTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
                         android:fontFamily="@font/poppins"
                         android:text="0/5 Reps"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <TextView
-                        android:id="@+id/cameraRepetitionsCardSets"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/poppins"
-                        android:text="1/3 Sets"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
