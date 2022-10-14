@@ -67,7 +67,7 @@ public class ApiUtils {
     }
 
     public static Call<List<Exercise>> getExercises(String auth_token) {
-        return apiService.getExercises(auth_token);
+        return apiService.getTraineeExercises(auth_token);
     }
 
     public static Call<Report> getReportForDay(String auth_token, String timestamp) {

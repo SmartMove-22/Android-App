@@ -32,7 +32,7 @@ public interface ApiService {
     Call<ExerciseAnalysisResponse> submitExerciseDataForAnalysis(@Path("exerciseId") int exerciseId, @Body ExerciseDataRequest exerciseDataRequest);
 
     @GET("trainee/exercises")
-    Call<List<Exercise>> getExercises(@Header("Authorization") String authorization);
+    Call<List<Exercise>> getTraineeExercises(@Header("Authorization") String authorization);
 
     @GET("trainee/exercises/report")
     Call<Report> getReportForDay(@Header("Authorization") String authorization, @Body ReportRequest body);
