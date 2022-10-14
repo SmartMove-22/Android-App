@@ -18,6 +18,7 @@ public class CameraStatsViewModel extends ViewModel {
     private Double highestRepTime;
     private Double timeAtNewRep = 0d;
     private int reps = 0;
+    MutableLiveData<Integer> correctnessTotal = new MutableLiveData<>(0);
 
     MutableLiveData<Integer> repetitionsCount = new MutableLiveData<>(0);
     MutableLiveData<Boolean> exerciseHalf = new MutableLiveData<>(false);
@@ -68,7 +69,8 @@ public class CameraStatsViewModel extends ViewModel {
     }
 
     public void addMeasurementToTotalCorrectness(Double totalCorrectnessMeasurement) {
-        this.totalCorrectness.setValue((this.totalMeasurementsCount.getValue() + totalCorrectnessMeasurement)/this.totalMeasurementsCount.getValue());
+        correctnessTotal.setValue(correctnessTotal.getValue() + 1);
+        this.totalCorrectness.setValue((double)(correctnessTotal.getValue()/this.totalMeasurementsCount.getValue()));
     }
 
     public void setTotalCalories(Double totalCalories) {
