@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import java.util.List;
 
 import pt.ua.hackaton.smartmove.R;
+import pt.ua.hackaton.smartmove.data.AssignedExercise;
 import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.data.LoginRequest;
 import pt.ua.hackaton.smartmove.data.LoginResponse;
@@ -71,5 +72,8 @@ public class ApiUtils {
         return apiService.getReportForDay(auth_token, new ReportRequest(timestamp));
     }
 
+    public static Call<List<AssignedExercise>> getTraineeAssignedExercises(String auth_token, String traineeId) {
+        return apiService.getTraineeAssignedExercises(auth_token, traineeId);
+    }
 
 }

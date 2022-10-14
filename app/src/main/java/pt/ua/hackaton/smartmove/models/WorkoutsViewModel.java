@@ -42,7 +42,7 @@ public class WorkoutsViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<Exercise>> call, Throwable t) {
-                // uhhhhh...
+                t.printStackTrace();
             }
         });
     }
