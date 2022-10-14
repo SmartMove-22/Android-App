@@ -10,7 +10,6 @@ import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.data.requests.ExerciseDataRequest;
 import pt.ua.hackaton.smartmove.data.requests.LoginRequest;
 import pt.ua.hackaton.smartmove.data.responses.ExerciseAnalysisResponse;
-import pt.ua.hackaton.smartmove.data.LoginRequest;
 import pt.ua.hackaton.smartmove.data.LoginResponse;
 import pt.ua.hackaton.smartmove.data.Report;
 import pt.ua.hackaton.smartmove.data.ReportRequest;
@@ -44,6 +43,7 @@ public class ApiUtils {
                         SharedPreferences prefs = context.getSharedPreferences(
                                 context.getString(R.string.preference_file_key),
                                 Context.MODE_PRIVATE);
+
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("token", response.body().getAuthorization());
                         editor.putString("type", response.body().getType());
