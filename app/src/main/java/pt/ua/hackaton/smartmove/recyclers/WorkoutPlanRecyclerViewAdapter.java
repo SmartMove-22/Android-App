@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import pt.ua.hackaton.smartmove.R;
+import pt.ua.hackaton.smartmove.data.AssignedExercise;
 import pt.ua.hackaton.smartmove.data.Exercise;
 
 public class WorkoutPlanRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutPlanRecyclerViewAdapter.ViewHolder> {
 
-    private List<Exercise> mData;
+    private List<? extends Exercise> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
@@ -25,7 +26,7 @@ public class WorkoutPlanRecyclerViewAdapter extends RecyclerView.Adapter<Workout
     }
 
     // data is passed into the constructor
-    public WorkoutPlanRecyclerViewAdapter(Context context, List<Exercise> data) {
+    public WorkoutPlanRecyclerViewAdapter(Context context, List<? extends Exercise> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -68,7 +69,7 @@ public class WorkoutPlanRecyclerViewAdapter extends RecyclerView.Adapter<Workout
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.workoutPlanExerciseNameTxt);
+            myTextView = itemView.findViewById(R.id.cameraExerciseNameTxt);
             viewHolderImage = itemView.findViewById(R.id.loginMainCardImageView);
             itemView.setOnClickListener(this);
         }

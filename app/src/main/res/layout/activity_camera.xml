@@ -51,10 +51,10 @@
                         android:text="Correctness"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cameraCorrectnessCardText2" />
+                        app:layout_constraintTop_toBottomOf="@+id/cameraCorrectnessCardText" />
 
                     <TextView
-                        android:id="@+id/cameraCorrectnessCardText2"
+                        android:id="@+id/cameraCorrectnessCardText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -102,13 +102,13 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="-4dp"
                         android:fontFamily="@font/poppins_light"
-                        android:text="Performance"
+                        android:text="Progress"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cameraCorrectnessCardText" />
+                        app:layout_constraintTop_toBottomOf="@+id/cameraProgressCardText" />
 
                     <TextView
-                        android:id="@+id/cameraCorrectnessCardText"
+                        android:id="@+id/cameraProgressCardText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -201,7 +201,7 @@
         app:layout_constraintStart_toEndOf="@+id/changeRecordingStatusBtn" />
 
     <TextView
-        android:id="@+id/workoutPlanExerciseNameTxt"
+        android:id="@+id/cameraExerciseNameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -224,7 +224,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/workoutPlanExerciseNameTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/cameraExerciseNameTxt" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

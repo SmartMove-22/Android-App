@@ -7,6 +7,9 @@ import java.util.List;
 
 import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.Exercise;
+import pt.ua.hackaton.smartmove.data.requests.ExerciseDataRequest;
+import pt.ua.hackaton.smartmove.data.requests.LoginRequest;
+import pt.ua.hackaton.smartmove.data.responses.ExerciseAnalysisResponse;
 import pt.ua.hackaton.smartmove.data.LoginRequest;
 import pt.ua.hackaton.smartmove.data.LoginResponse;
 import pt.ua.hackaton.smartmove.data.Report;
@@ -71,5 +74,8 @@ public class ApiUtils {
         return apiService.getReportForDay(auth_token, new ReportRequest(timestamp));
     }
 
+    public static Call<ExerciseAnalysisResponse> submitExerciseDataForAnalysis(int exerciseId, ExerciseDataRequest exerciseDataRequest) {
+        return apiService.submitExerciseDataForAnalysis(exerciseId, exerciseDataRequest);
+    }
 
 }

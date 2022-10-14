@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import pt.ua.hackaton.smartmove.data.AssignedExercise;
 import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.data.Report;
 import pt.ua.hackaton.smartmove.models.ReportsViewModel;
@@ -143,7 +144,8 @@ public class ReportFragment extends Fragment {
         reportsViewModel.setTimestamp(data.get(7).toString());
     }
 
-    private void setupWorkoutPlanRecyclerView(View view) {
+    private void setupWorkoutPlanRecyclerView(View view, List<AssignedExercise> data) {
+
         RecyclerView recyclerView = view.findViewById(R.id.reportExercisesProgramRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
