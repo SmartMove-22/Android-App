@@ -65,11 +65,13 @@ public class CameraActivity extends AppCompatActivity {
 
             myIntent.putExtra("calories", cameraStatsViewModel.getTotalCalories().getValue());
             myIntent.putExtra("correctness", cameraStatsViewModel.getTotalCorrectness().getValue());
+            myIntent.putExtra("pacing", cameraStatsViewModel.getPacing().getValue());
+            myIntent.putExtra("time", cameraStatsViewModel.getTotalTime().getValue());
+            myIntent.putExtra("averageTime", cameraStatsViewModel.getSetAverage().getValue());
 
             this.startActivity(myIntent);
 
             finish();
-
         });
 
     }

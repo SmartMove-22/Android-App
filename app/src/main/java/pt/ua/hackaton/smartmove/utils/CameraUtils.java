@@ -104,6 +104,7 @@ public class CameraUtils {
 
                                         timeElapsed[0] = System.currentTimeMillis();
 
+
                                         AtomicBoolean isInFirstHalt = new AtomicBoolean(false);
                                         long totalTime = System.currentTimeMillis() - initialTime;
                                         ExerciseDataRequest exerciseDataRequest = new ExerciseDataRequest(totalTime, isInFirstHalt.get(), "squat", landmarkPointList);
@@ -124,11 +125,14 @@ public class CameraUtils {
 
                                                         cameraStatsViewModel.addMeasurementCount(1);
                                                         cameraStatsViewModel.addMeasurementToTotalCorrectness(response.body().getCorrectness());
+                                                        cameraStatsViewModel.getTotalTime().setValue((double)totalTime);
 
                                                         isInFirstHalt.set(response.body().isFirstHalf());
 
                                                         if (response.body().isFinishedRepetition()) {
                                                             Toast.makeText(context, "Finished Repetition", Toast.LENGTH_SHORT).show();
+                                                            cameraStatsViewModel.incrementReps();
+                                                            //cameraStatsViewModel.updateRepTimes((double)System.currentTimeMillis());
                                                         }
 
                                                         BitmapUtils.markPointRed(rotatedMutableBitmap, pose.getPoseLandmark(response.body().getWorstMiddleLandmark()));
