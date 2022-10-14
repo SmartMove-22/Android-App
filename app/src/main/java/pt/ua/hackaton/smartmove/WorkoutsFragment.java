@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +18,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import pt.ua.hackaton.smartmove.data.AssignedExercise;
+import pt.ua.hackaton.smartmove.data.Category;
 import pt.ua.hackaton.smartmove.data.Exercise;
+import pt.ua.hackaton.smartmove.models.PerformedExerciseViewModel;
 import pt.ua.hackaton.smartmove.recyclers.SuggestedExercisesRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
 
@@ -80,17 +84,22 @@ public class WorkoutsFragment extends Fragment {
 
 
         // data to populate the RecyclerView with
-        List<Exercise> exercisesNames = new ArrayList<>();
-        exercisesNames.add(new Exercise(1, null, "Chest Muscles", null, 1,1,300));
-        exercisesNames.add(new Exercise(1, null, "Abdominal Muscles", null, 1,1,300));
-        exercisesNames.add(new Exercise(1, null, "Push Ups", null, 1,1,300));
+        List<AssignedExercise> exercisesNames = new ArrayList<>();
+        exercisesNames.add(new AssignedExercise(1, null, "Chest Muscles", new Category(1, "squat", ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
+        exercisesNames.add(new AssignedExercise(1, null, "Abdominal Muscles", new Category(1, "squat", ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
+        exercisesNames.add(new AssignedExercise(1, null, "Push Ups", new Category(1, "squat", ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
+
+        List<Exercise> exercises = new ArrayList<>();
+        exercises.add(new Exercise(1, null, "Chest Muscles", new Category(1, "squat", ""), 1,1,300));
+        exercises.add(new Exercise(1, null, "Abdominal Muscles", new Category(1, "squat", ""), 1,1,300));
+        exercises.add(new Exercise(1, null, "Push Ups", new Category(1, "squat", ""), 1,1,300));
 
         setupWorkoutPlanRecyclerView(view, exercisesNames);
-        setupSuggestedExerciseRecyclerView(view, exercisesNames);
+        setupSuggestedExerciseRecyclerView(view, exercises);
 
     }
 
-    private void setupWorkoutPlanRecyclerView(View view, List<Exercise> data) {
+    private void setupWorkoutPlanRecyclerView(View view, List<? extends Exercise> data) {
 
         RecyclerView recyclerView = view.findViewById(R.id.workoutPlanRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -98,10 +107,19 @@ public class WorkoutsFragment extends Fragment {
         adapter.setClickListener(new WorkoutPlanRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+
                 if (getActivity() != null) {
+
                     Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+
+                    myIntent.putExtra("exercise_id", data.get(position).getId());
+                    myIntent.putExtra("exercise_name", data.get(position).getName());
+                    myIntent.putExtra("exercise_category_name", data.get(position).getCategory().getCategory());
+
                     getActivity().startActivity(myIntent);
+
                 }
+
             }
         });
         recyclerView.setAdapter(adapter);
@@ -118,8 +136,15 @@ public class WorkoutsFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 if (getActivity() != null) {
+
                     Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+
+                    myIntent.putExtra("exercise_id", data.get(position).getId());
+                    myIntent.putExtra("exercise_name", data.get(position).getName());
+                    myIntent.putExtra("exercise_category_name", data.get(position).getCategory().getCategory());
+
                     getActivity().startActivity(myIntent);
+
                 }
             }
         });

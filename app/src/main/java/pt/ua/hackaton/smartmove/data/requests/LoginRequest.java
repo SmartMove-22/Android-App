@@ -1,4 +1,4 @@
-package pt.ua.hackaton.smartmove.data;
+package pt.ua.hackaton.smartmove.data.requests;
 
 public class LoginRequest {
 

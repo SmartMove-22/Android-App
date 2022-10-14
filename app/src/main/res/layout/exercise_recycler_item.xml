@@ -43,7 +43,7 @@
                 app:srcCompat="@drawable/lift_weight" />
 
             <TextView
-                android:id="@+id/workoutPlanExerciseNameTxt"
+                android:id="@+id/cameraExerciseNameTxt"
                 android:layout_width="192dp"
                 android:layout_height="81dp"
                 android:layout_marginStart="16dp"

@@ -4,24 +4,32 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 
+import pt.ua.hackaton.smartmove.models.CameraStatsViewModel;
 import pt.ua.hackaton.smartmove.permissions.CameraPermission;
 import pt.ua.hackaton.smartmove.utils.CameraUtils;
 
 public class CameraActivity extends AppCompatActivity {
 
     private boolean recordingExercise = false;
+    AtomicReference<List<Double>> values = new AtomicReference<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +48,29 @@ public class CameraActivity extends AppCompatActivity {
             cameraPermission.askPermission();
         }
 
+        long exerciseId = getIntent().getLongExtra("exercise_id", -1);
+        String exerciseName = getIntent().getStringExtra("exercise_name");
+        String exerciseCategory = getIntent().getStringExtra("exercise_category_name");
+
+        TextView cameraExerciseName = findViewById(R.id.cameraExerciseNameTxt);
+        cameraExerciseName.setText(exerciseName);
+
         setupCamera();
 
         findViewById(R.id.cameraSaveExerciseBtn).setOnClickListener(view -> {
 
+            CameraStatsViewModel cameraStatsViewModel = new ViewModelProvider(this).get(CameraStatsViewModel.class);
+
             Intent myIntent = new Intent(this, ExerciseReportActivity.class);
+
+            myIntent.putExtra("calories", cameraStatsViewModel.getTotalCalories().getValue());
+            myIntent.putExtra("correctness", cameraStatsViewModel.getTotalCorrectness().getValue());
+
             this.startActivity(myIntent);
+
             finish();
 
         });
-
 
     }
 
@@ -76,7 +97,7 @@ public class CameraActivity extends AppCompatActivity {
         findViewById(R.id.changeRecordingStatusBtn).setOnClickListener(view -> cameraProviderFuture.addListener(() -> {
 
             if (!recordingExercise) {
-                CameraUtils.startCameraX(this, cameraFrame, finalCameraProvider);
+                values.set(CameraUtils.startCameraX(this, cameraFrame, finalCameraProvider));
                 changeRecordingStatusBtn.setText("Stop");
             } else {
                 CameraUtils.stopCameraX(finalCameraProvider);

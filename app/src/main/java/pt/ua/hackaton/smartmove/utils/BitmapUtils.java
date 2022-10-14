@@ -62,7 +62,23 @@ public class BitmapUtils {
 
     }
 
-    public static void markPoint(Bitmap mutableBitmap, PoseLandmark poseLandmark) {
+    public static void markPointBlue(Bitmap mutableBitmap, PoseLandmark poseLandmark) {
+
+        if (mutableBitmap == null) {
+            return;
+        }
+
+        Canvas tempCanvas = new Canvas(mutableBitmap);
+
+        Paint paint = new Paint(Paint.DITHER_FLAG);
+        paint.setColor(Color.BLUE);
+
+        tempCanvas.drawBitmap(mutableBitmap, 0, 0, null);
+        tempCanvas.drawCircle(poseLandmark.getPosition().x, poseLandmark.getPosition().y, 10, paint);
+
+    }
+
+    public static void markPointRed(Bitmap mutableBitmap, PoseLandmark poseLandmark) {
 
         if (mutableBitmap == null) {
             return;
