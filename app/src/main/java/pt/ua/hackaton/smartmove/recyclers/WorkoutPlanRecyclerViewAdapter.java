@@ -20,10 +20,18 @@ public class WorkoutPlanRecyclerViewAdapter extends RecyclerView.Adapter<Workout
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
+    public WorkoutPlanRecyclerViewAdapter(Context context) {
+        this.mInflater = LayoutInflater.from(context);
+    }
+
     // data is passed into the constructor
     public WorkoutPlanRecyclerViewAdapter(Context context, List<Exercise> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+    }
+
+    public void setData(List<?extends Exercise> data) {
+        mData = (List<Exercise>) data;
     }
 
     // inflates the row layout from xml when needed
@@ -45,7 +53,10 @@ public class WorkoutPlanRecyclerViewAdapter extends RecyclerView.Adapter<Workout
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        if (mData != null)
+            return mData.size();
+        else
+            return 0;
     }
 
 

@@ -50,17 +50,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(final String username, final String password) {
-        if (ApiUtils.authenticate(username, password)) {
+        ApiUtils.authenticate(this, username, password,
+                () -> {
+                    Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
 
-            Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
-
-            Intent myIntent = new Intent(this, MainActivity.class);
-            this.startActivity(myIntent);
-            finish();
-
-        } else {
-            Toast.makeText(this, "Wrong Credentials!", Toast.LENGTH_SHORT).show();
-        }
+                    Intent myIntent = new Intent(this, MainActivity.class);
+                    this.startActivity(myIntent);
+                    finish();
+                },
+                () -> {
+                    Toast.makeText(this, "Wrong Credentials!", Toast.LENGTH_SHORT).show();
+                }
+        );
     }
 
 
