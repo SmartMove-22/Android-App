@@ -16,14 +16,22 @@ import pt.ua.hackaton.smartmove.data.Exercise;
 
 public class SuggestedExercisesRecyclerViewAdapter extends RecyclerView.Adapter<SuggestedExercisesRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Exercise> mData;
+    private List<Exercise> mData;
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+
+    public SuggestedExercisesRecyclerViewAdapter(Context context) {
+        this.mInflater = LayoutInflater.from(context);
+    }
 
     // data is passed into the constructor
     public SuggestedExercisesRecyclerViewAdapter(Context context, List<Exercise> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+    }
+
+    public void setData(List<Exercise> data) {
+        mData = data;
     }
 
     // inflates the row layout from xml when needed
@@ -45,7 +53,10 @@ public class SuggestedExercisesRecyclerViewAdapter extends RecyclerView.Adapter<
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        if (mData != null)
+            return mData.size();
+        else
+            return 0;
     }
 
 

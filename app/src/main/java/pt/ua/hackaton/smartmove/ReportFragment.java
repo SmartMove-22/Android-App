@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,9 @@ import java.util.List;
 
 import pt.ua.hackaton.smartmove.data.AssignedExercise;
 import pt.ua.hackaton.smartmove.data.Exercise;
+import pt.ua.hackaton.smartmove.data.Report;
+import pt.ua.hackaton.smartmove.models.ReportsViewModel;
+import pt.ua.hackaton.smartmove.models.WorkoutsViewModel;
 import pt.ua.hackaton.smartmove.recyclers.DaysOfWeekRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
 
@@ -42,6 +47,9 @@ public class ReportFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ReportsViewModel reportsViewModel;
+    private WorkoutPlanRecyclerViewAdapter workoutPlanRecyclerViewAdapter;
 
     /**
      * Use this factory method to create a new instance of
@@ -68,10 +76,26 @@ public class ReportFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        reportsViewModel = new ViewModelProvider(this).get(ReportsViewModel.class);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        reportsViewModel.getTimestamp().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                reportsViewModel.fetchReport();
+            }
+        });
+
+        reportsViewModel.getReport().observe(this, new Observer<Report>() {
+            @Override
+            public void onChanged(Report report) {
+                if (workoutPlanRecyclerViewAdapter != null)
+                    workoutPlanRecyclerViewAdapter.setData(report.getExercises());
+            }
+        });
     }
 
     @Override
@@ -86,24 +110,21 @@ public class ReportFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        List<LocalDateTime> next7DaysDates = new ArrayList<>();
+        List<LocalDateTime> range7Days = new ArrayList<>();
 
-        List<AssignedExercise> exercisesNames = new ArrayList<>();
-        exercisesNames.add(new AssignedExercise(1, null, "Chest Muscles", null, 1,1,300, null, false, 0, 0, 0, 0, 0));
-        exercisesNames.add(new AssignedExercise(1, null, "Abdominal Muscles", null, 1,1,300, null, false, 0, 0, 0, 0, 0));
-        exercisesNames.add(new AssignedExercise(1, null, "Push Ups", null, 1,1,300, null, false, 0, 0, 0, 0, 0));
+        //List<Exercise> exercisesNames = new ArrayList<>();
+        //exercisesNames.add(new Exercise(1, null, "Chest Muscles", null, 1,1,300));
+        //exercisesNames.add(new Exercise(1, null, "Abdominal Muscles", null, 1,1,300));
 
-        for (int i = 0; i < 7; i++) {
-
+        for (int i = -7; i < 7; i++) {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DATE, i);
 
-            next7DaysDates.add(LocalDateTime.ofInstant(calendar.getTime().toInstant(), ZoneId.systemDefault()));
-
+            range7Days.add(LocalDateTime.ofInstant(calendar.getTime().toInstant(), ZoneId.systemDefault()));
         }
 
-        setupDaysRecyclerView(view, next7DaysDates);
-        setupWorkoutPlanRecyclerView(view, exercisesNames);
+        setupDaysRecyclerView(view, range7Days);
+        setupWorkoutPlanRecyclerView(view);
 
     }
 
@@ -115,11 +136,12 @@ public class ReportFragment extends Fragment {
         DaysOfWeekRecyclerViewAdapter adapter = new DaysOfWeekRecyclerViewAdapter(getContext(), data);
 
         adapter.setClickListener((view1, position) -> {
-            Toast.makeText(getContext(), "Clicked On item " + position, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Clicked On item " + position, Toast.LENGTH_SHORT).show();
+            reportsViewModel.setTimestamp(data.get(position).toString());
         });
 
         recyclerView.setAdapter(adapter);
-
+        reportsViewModel.setTimestamp(data.get(7).toString());
     }
 
     private void setupWorkoutPlanRecyclerView(View view, List<AssignedExercise> data) {
@@ -127,14 +149,13 @@ public class ReportFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.reportExercisesProgramRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        WorkoutPlanRecyclerViewAdapter adapter = new WorkoutPlanRecyclerViewAdapter(getContext(), data);
+        workoutPlanRecyclerViewAdapter = new WorkoutPlanRecyclerViewAdapter(getContext());
 
-        adapter.setClickListener((view1, position) -> {
+        workoutPlanRecyclerViewAdapter.setClickListener((view1, position) -> {
             Toast.makeText(getContext(), "Clicked On item " + position, Toast.LENGTH_SHORT).show();
         });
 
-        recyclerView.setAdapter(adapter);
-
+        recyclerView.setAdapter(workoutPlanRecyclerViewAdapter);
     }
 
 }

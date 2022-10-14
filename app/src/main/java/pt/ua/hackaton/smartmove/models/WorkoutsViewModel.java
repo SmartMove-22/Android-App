@@ -1,5 +1,7 @@
 package pt.ua.hackaton.smartmove.models;
 
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -16,6 +18,12 @@ public class WorkoutsViewModel extends ViewModel {
 
     private MutableLiveData<List<Exercise>> exercises;
 
+    private SharedPreferences sharedPreferences;
+
+    public void setSharedPreferences(SharedPreferences prefs) {
+        sharedPreferences = prefs;
+    }
+
     public LiveData<List<Exercise>> getWorkouts() {
         if (exercises == null) {
             exercises = new MutableLiveData<List<Exercise>>();
@@ -25,7 +33,8 @@ public class WorkoutsViewModel extends ViewModel {
     }
 
     private void loadExercises() {
-        ApiUtils.getExercises().enqueue(new Callback<List<Exercise>>() {
+        String auth_token = sharedPreferences.getString("token", "");
+        ApiUtils.getExercises(auth_token).enqueue(new Callback<List<Exercise>>() {
             @Override
             public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
                 exercises.setValue(response.body());
