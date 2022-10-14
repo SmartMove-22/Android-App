@@ -101,12 +101,12 @@ public class WorkoutsFragment extends Fragment {
 
         // data to populate the RecyclerView with
         List<AssignedExercise> exercisesNames = new ArrayList<>();
-        exercisesNames.add(new AssignedExercise(1, null, "Chest Muscles", new Category(1, "squat", ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
+        exercisesNames.add(new AssignedExercise(1, null, "Legs Muscles", new Category(1, "squat", ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
         exercisesNames.add(new AssignedExercise(1, null, "Abdominal Muscles", new Category(1, "squat", ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
         exercisesNames.add(new AssignedExercise(1, null, "Push Ups", new Category(1, "squat", ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
 
         List<Exercise> exercises = new ArrayList<>();
-        exercises.add(new Exercise(1, null, "Chest Muscles", new Category(1, "squat", ""), 1,1,300));
+        exercises.add(new Exercise(1, null, "Legs Muscles", new Category(1, "squat", ""), 1,1,300));
         exercises.add(new Exercise(1, null, "Abdominal Muscles", new Category(1, "squat", ""), 1,1,300));
         exercises.add(new Exercise(1, null, "Push Ups", new Category(1, "squat", ""), 1,1,300));
 
@@ -117,26 +117,28 @@ public class WorkoutsFragment extends Fragment {
 
     private void setupWorkoutPlanRecyclerView(View view, List<? extends Exercise> data) {
 
-        workoutsViewModel.getWorkouts().observe(getActivity(), new Observer<List<Exercise>>() {
-            @Override
-            public void onChanged(List<Exercise> exercises) {
-                if (workoutPlanRecyclerAdapter != null)
-                    workoutPlanRecyclerAdapter.setData(exercises);
-                if (suggestedExercisesRecyclerAdapter != null)
-                    suggestedExercisesRecyclerAdapter.setData(exercises);
+
+        RecyclerView recyclerView = view.findViewById(R.id.workoutPlanRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        workoutPlanRecyclerAdapter = new WorkoutPlanRecyclerViewAdapter(getContext(), data);
+        workoutPlanRecyclerAdapter.setClickListener((view1, position) -> {
+
+            if (getActivity() != null) {
+
+                Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+
+                myIntent.putExtra("exercise_id", data.get(position).getId());
+                myIntent.putExtra("exercise_name", data.get(position).getName());
+                myIntent.putExtra("exercise_category_name", data.get(position).getCategory().getCategory());
+
+                getActivity().startActivity(myIntent);
+
             }
+
         });
 
-        /*
-         data to populate the RecyclerView with
-        List<Exercise> exercisesNames = new ArrayList<>();
-        exercisesNames.add(new Exercise(1, null, "Chest Muscles", null, 1,1,300));
-        exercisesNames.add(new Exercise(1, null, "Abdominal Muscles", null, 1,1,300));
-        exercisesNames.add(new Exercise(1, null, "Push Ups", null, 1,1,300));
-        */
-
-        setupWorkoutPlanRecyclerView(view);
-        setupSuggestedExerciseRecyclerView(view);
+        recyclerView.setAdapter(workoutPlanRecyclerAdapter);
 
     }
 
@@ -168,13 +170,15 @@ public class WorkoutsFragment extends Fragment {
     }
     */
 
-    private void setupSuggestedExerciseRecyclerView(View view) {
+    private void setupSuggestedExerciseRecyclerView(View view, List<? extends Exercise> data) {
         RecyclerView recyclerView = view.findViewById(R.id.suggestedExercisesRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        suggestedExercisesRecyclerAdapter = new SuggestedExercisesRecyclerViewAdapter(getContext());
+        suggestedExercisesRecyclerAdapter = new SuggestedExercisesRecyclerViewAdapter(getContext(), data);
         suggestedExercisesRecyclerAdapter.setClickListener(new SuggestedExercisesRecyclerViewAdapter.ItemClickListener() {
+
             @Override
             public void onItemClick(View view, int position) {
+
                 if (getActivity() != null) {
 
                     Intent myIntent = new Intent(getActivity(), CameraActivity.class);
@@ -186,7 +190,9 @@ public class WorkoutsFragment extends Fragment {
                     getActivity().startActivity(myIntent);
 
                 }
+
             }
+
         });
         recyclerView.setAdapter(suggestedExercisesRecyclerAdapter);
     }

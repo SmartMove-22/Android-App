@@ -1,5 +1,8 @@
 package pt.ua.hackaton.smartmove;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,27 +35,51 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
-            if (item.getItemId() == R.id.workouts_menu_item) {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView, WorkoutsFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("workout_fragment")
-                        .commit();
-                return true;
-            } else if (item.getItemId() == R.id.coaching_menu_item) {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView, CoachTraineesFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("coaching_fragment")
-                        .commit();
-                return true;
-            } else if (item.getItemId() == R.id.statistics_menu_item) {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView, CoachAddExercisesFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("report_fragment")
-                        .commit();
-                return true;
+            String userType = getIntent().getStringExtra("user_type");
+
+            if (userType.equals("TRAINEE")) {
+
+                if (item.getItemId() == R.id.workouts_menu_item) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, WorkoutsFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("workout_fragment")
+                            .commit();
+                    return true;
+                } else if (item.getItemId() == R.id.coaching_menu_item) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, CoachingFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("coaching_fragment")
+                            .commit();
+                    return true;
+                } else if (item.getItemId() == R.id.statistics_menu_item) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, ReportFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("report_fragment")
+                            .commit();
+                    return true;
+                }
+
+            } else {
+
+                if (item.getItemId() == R.id.workouts_menu_item) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, WorkoutsFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("workout_fragment")
+                            .commit();
+                    return true;
+                } else if (item.getItemId() == R.id.coaching_menu_item) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, CoachTraineesFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("coaching_fragment")
+                            .commit();
+                    return true;
+                }
+
             }
 
             return false;
