@@ -30,8 +30,8 @@ public class WorkoutPlanRecyclerViewAdapter extends RecyclerView.Adapter<Workout
         this.mData = data;
     }
 
-    public void setData(List<Exercise> data) {
-        mData = data;
+    public void setData(List<?extends Exercise> data) {
+        mData = (List<Exercise>) data;
     }
 
     // inflates the row layout from xml when needed

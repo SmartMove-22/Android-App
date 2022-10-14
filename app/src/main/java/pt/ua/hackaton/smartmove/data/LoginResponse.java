@@ -4,7 +4,8 @@ public class LoginResponse {
 
     private String message;
     private String code;
-    private String Authorization;
+    private String authorization;
+    private String type;
 
     public LoginResponse() {};
 
@@ -25,10 +26,14 @@ public class LoginResponse {
     }
 
     public String getAuthorization() {
-        return Authorization;
+        return authorization;
     }
 
     public void setAuthorization(String authorization) {
-        Authorization = authorization;
+        authorization = authorization;
     }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
 }

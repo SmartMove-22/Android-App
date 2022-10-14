@@ -78,17 +78,6 @@ public class WorkoutsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        workoutsViewModel.getWorkouts().observe(this, new Observer<List<Exercise>>() {
-            @Override
-            public void onChanged(List<Exercise> exercises) {
-                if (workoutPlanRecyclerAdapter != null)
-                    workoutPlanRecyclerAdapter.setData(exercises);
-                if (suggestedExercisesRecyclerAdapter != null)
-                    suggestedExercisesRecyclerAdapter.setData(exercises);
-            }
-        });
-
     }
 
     @Override
@@ -105,6 +94,16 @@ public class WorkoutsFragment extends Fragment {
                 getContext().getSharedPreferences(
                         getString(R.string.preference_file_key),
                         Context.MODE_PRIVATE));
+
+        workoutsViewModel.getWorkouts().observe(getActivity(), new Observer<List<Exercise>>() {
+            @Override
+            public void onChanged(List<Exercise> exercises) {
+                if (workoutPlanRecyclerAdapter != null)
+                    workoutPlanRecyclerAdapter.setData(exercises);
+                if (suggestedExercisesRecyclerAdapter != null)
+                    suggestedExercisesRecyclerAdapter.setData(exercises);
+            }
+        });
 
         /*
          data to populate the RecyclerView with
