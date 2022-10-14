@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(final String username, final String password) {
-        if (ApiUtils.authenticate(username, password)) {
+        if (ApiUtils.authenticate(this, username, password)) {
 
             Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
 
