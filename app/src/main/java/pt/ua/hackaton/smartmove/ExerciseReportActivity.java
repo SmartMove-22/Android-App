@@ -3,6 +3,7 @@ package pt.ua.hackaton.smartmove;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 public class ExerciseReportActivity extends AppCompatActivity {
 
@@ -16,12 +17,15 @@ public class ExerciseReportActivity extends AppCompatActivity {
             this.getSupportActionBar().hide();
         }
 
+        double calories = getIntent().getLongExtra("calories", -1);
+        double correctness = getIntent().getDoubleExtra("correctness", 0);
+
+        Log.d("TESTEE", String.valueOf(correctness));
+
         findViewById(R.id.exerciseReportQuitBtn).setOnClickListener(view -> {
             finish();
         });
 
     }
-
-
 
 }

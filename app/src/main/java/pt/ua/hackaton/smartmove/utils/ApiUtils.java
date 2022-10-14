@@ -8,7 +8,9 @@ import java.util.List;
 import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.AssignedExercise;
 import pt.ua.hackaton.smartmove.data.Exercise;
-import pt.ua.hackaton.smartmove.data.LoginRequest;
+import pt.ua.hackaton.smartmove.data.requests.ExerciseDataRequest;
+import pt.ua.hackaton.smartmove.data.requests.LoginRequest;
+import pt.ua.hackaton.smartmove.data.responses.ExerciseAnalysisResponse;
 import pt.ua.hackaton.smartmove.data.LoginResponse;
 import pt.ua.hackaton.smartmove.data.Report;
 import pt.ua.hackaton.smartmove.data.ReportRequest;
@@ -74,6 +76,10 @@ public class ApiUtils {
 
     public static Call<List<AssignedExercise>> getTraineeAssignedExercises(String auth_token, String traineeId) {
         return apiService.getTraineeAssignedExercises(auth_token, traineeId);
+    }
+
+    public static Call<ExerciseAnalysisResponse> submitExerciseDataForAnalysis(int exerciseId, ExerciseDataRequest exerciseDataRequest) {
+        return apiService.submitExerciseDataForAnalysis(exerciseId, exerciseDataRequest);
     }
 
 }

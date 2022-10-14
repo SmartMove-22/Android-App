@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import pt.ua.hackaton.smartmove.data.AssignedExercise;
 import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.recyclers.SuggestedExercisesRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
@@ -79,17 +80,17 @@ public class CoachingFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        // data to populate the RecyclerView with
-        List<Exercise> exercisesNames = new ArrayList<>();
-        exercisesNames.add(new Exercise(1, null, "Chest Muscles", null, 1,1,300));
-        exercisesNames.add(new Exercise(1, null, "Abdominal Muscles", null, 1,1,300));
-        exercisesNames.add(new Exercise(1, null, "Push Ups", null, 1,1,300));
+        List<AssignedExercise> exercisesNames = new ArrayList<>();
+        exercisesNames.add(new AssignedExercise(1, null, "Chest Muscles", null, 1,1,300, null, false, 0, 0, 0, 0, 0));
+        exercisesNames.add(new AssignedExercise(1, null, "Abdominal Muscles", null, 1,1,300, null, false, 0, 0, 0, 0, 0));
+        exercisesNames.add(new AssignedExercise(1, null, "Push Ups", null, 1,1,300, null, false, 0, 0, 0, 0, 0));
+
 
         setupWorkoutPlanRecyclerView(view, exercisesNames);
 
     }
 
-    private void setupWorkoutPlanRecyclerView(View view, List<Exercise> data) {
+    private void setupWorkoutPlanRecyclerView(View view, List<AssignedExercise> data) {
 
         RecyclerView recyclerView = view.findViewById(R.id.coachingFragWorkoutPlanRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

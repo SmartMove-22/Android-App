@@ -1,6 +1,8 @@
 package pt.ua.hackaton.smartmove.data;
 
-public class AssignedExercise extends Exercise {
+import java.io.Serializable;
+
+public class AssignedExercise extends Exercise implements Serializable {
 
     private final Trainee trainee;
     private final boolean completed;
