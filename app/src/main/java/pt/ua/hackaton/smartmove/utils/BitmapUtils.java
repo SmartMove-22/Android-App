@@ -74,7 +74,7 @@ public class BitmapUtils {
         paint.setColor(Color.RED);
 
         tempCanvas.drawBitmap(mutableBitmap, 0, 0, null);
-        tempCanvas.drawCircle(poseLandmark.getPosition().x, poseLandmark.getPosition().y, 20, paint);
+        tempCanvas.drawCircle(poseLandmark.getPosition().x, poseLandmark.getPosition().y, 10, paint);
 
     }
 
