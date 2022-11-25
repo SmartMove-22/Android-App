@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
@@ -52,7 +50,7 @@ public class CameraActivity extends AppCompatActivity {
         String exerciseName = getIntent().getStringExtra("exercise_name");
         String exerciseCategory = getIntent().getStringExtra("exercise_category_name");
 
-        TextView cameraExerciseName = findViewById(R.id.cameraExerciseNameTxt);
+        TextView cameraExerciseName = findViewById(R.id.exerciseCardNameTxt);
         cameraExerciseName.setText(exerciseName);
 
         setupCamera();

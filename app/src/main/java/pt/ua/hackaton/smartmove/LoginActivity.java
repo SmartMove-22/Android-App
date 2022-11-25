@@ -2,9 +2,7 @@ package pt.ua.hackaton.smartmove;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import pt.ua.hackaton.smartmove.utils.ApiUtils;
 import pt.ua.hackaton.smartmove.utils.SharedPreferencesHandler;
 import pt.ua.hackaton.smartmove.utils.UserType;
 
@@ -28,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
             this.getSupportActionBar().hide();
         }
 
-        ImageView imageView = (ImageView)findViewById(R.id.loginMainCardImageView);
+        ImageView imageView = (ImageView)findViewById(R.id.exerciseCardImageView);
         imageView.setColorFilter(Color.GRAY, PorterDuff.Mode.DARKEN);
 
         findViewById(R.id.loginBtn).setOnClickListener(view -> {

@@ -2,6 +2,8 @@ package pt.ua.hackaton.smartmove.data;
 
 import java.io.Serializable;
 
+import pt.ua.hackaton.smartmove.R;
+
 public class AssignedExercise extends Exercise implements Serializable {
 
     private final Trainee trainee;
@@ -13,7 +15,7 @@ public class AssignedExercise extends Exercise implements Serializable {
     private final int grade;
 
     public AssignedExercise(long id, Coach coach, String name, Category category, int sets, int reps, double calories, Trainee trainee, boolean completed, double correctness, double performance, double improvement, double caloriesBurn, int grade) {
-        super(id, coach, name, category, sets, reps, calories);
+        super(id, coach, name, category, sets, reps, calories, R.drawable.lift_weight);
         this.trainee = trainee;
         this.completed = completed;
         this.correctness = correctness;

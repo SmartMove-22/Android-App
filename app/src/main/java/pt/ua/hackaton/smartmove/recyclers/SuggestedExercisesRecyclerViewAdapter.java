@@ -43,7 +43,7 @@ public class SuggestedExercisesRecyclerViewAdapter extends RecyclerView.Adapter<
         Exercise exercise = mData.get(position);
         holder.myTextView.setText(exercise.getName());
         // TODO: Change this by the exercise image name.
-        holder.viewHolderImage.setImageResource(R.drawable.lift_weight);
+        holder.viewHolderImage.setImageResource(exercise.getImageResourceId());
     }
 
     // total number of rows
@@ -64,8 +64,8 @@ public class SuggestedExercisesRecyclerViewAdapter extends RecyclerView.Adapter<
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.cameraExerciseNameTxt);
-            viewHolderImage = itemView.findViewById(R.id.loginMainCardImageView);
+            myTextView = itemView.findViewById(R.id.exerciseCardNameTxt);
+            viewHolderImage = itemView.findViewById(R.id.exerciseCardImageView);
             itemView.setOnClickListener(this);
         }
 

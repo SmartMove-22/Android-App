@@ -9,8 +9,9 @@ public class Exercise {
     private final int sets;
     private final int reps;
     private final double calories;
+    private final int imageResourceId;
 
-    public Exercise(long id, Coach coach, String name, Category category, int sets, int reps, double calories) {
+    public Exercise(long id, Coach coach, String name, Category category, int sets, int reps, double calories, int imageResourceId) {
         this.id = id;
         this.coach = coach;
         this.name = name;
@@ -18,8 +19,8 @@ public class Exercise {
         this.sets = sets;
         this.reps = reps;
         this.calories = calories;
+        this.imageResourceId = imageResourceId;
     }
-
 
     public long getId() {
         return id;
@@ -48,4 +49,9 @@ public class Exercise {
     public double getCalories() {
         return calories;
     }
+
+    public int getImageResourceId() {
+        return imageResourceId;
+    }
+
 }

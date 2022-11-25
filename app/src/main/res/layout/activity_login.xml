@@ -27,7 +27,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/loginMainCardImageView"
+                android:id="@+id/exerciseCardImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -67,7 +67,7 @@
                 android:text="Your smart workout planner"
                 android:textColor="#C8C8C8"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/loginMainCardImageView"
+                app:layout_constraintBottom_toBottomOf="@+id/exerciseCardImageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
