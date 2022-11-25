@@ -1,13 +1,10 @@
-package pt.ua.hackaton.smartmove;
+package pt.ua.hackaton.smartmove.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,15 +17,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
+import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.AssignedExercise;
 import pt.ua.hackaton.smartmove.data.Category;
-import pt.ua.hackaton.smartmove.data.Exercise;
-import pt.ua.hackaton.smartmove.data.Report;
 import pt.ua.hackaton.smartmove.models.ReportsViewModel;
-import pt.ua.hackaton.smartmove.models.WorkoutsViewModel;
 import pt.ua.hackaton.smartmove.recyclers.DaysOfWeekRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
 

@@ -1,4 +1,4 @@
-package pt.ua.hackaton.smartmove;
+package pt.ua.hackaton.smartmove.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,12 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +18,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import pt.ua.hackaton.smartmove.CameraActivity;
+import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.AssignedExercise;
 import pt.ua.hackaton.smartmove.data.Category;
 import pt.ua.hackaton.smartmove.data.Exercise;
-import pt.ua.hackaton.smartmove.models.PerformedExerciseViewModel;
 import pt.ua.hackaton.smartmove.models.WorkoutsViewModel;
 import pt.ua.hackaton.smartmove.recyclers.SuggestedExercisesRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
@@ -110,12 +109,12 @@ public class WorkoutsFragment extends Fragment {
         exercises.add(new Exercise(1, null, "Abdominal Muscles", new Category(1, "squat", ""), 1,1,300));
         exercises.add(new Exercise(1, null, "Push Ups", new Category(1, "squat", ""), 1,1,300));
 
-        setupWorkoutPlanRecyclerView(view, exercisesNames);
+        // setupWorkoutPlanRecyclerView(view, exercisesNames);
         setupSuggestedExerciseRecyclerView(view, exercises);
 
     }
 
-    private void setupWorkoutPlanRecyclerView(View view, List<? extends Exercise> data) {
+    /*private void setupWorkoutPlanRecyclerView(View view, List<? extends Exercise> data) {
 
 
         RecyclerView recyclerView = view.findViewById(R.id.workoutPlanRecyclerView);
@@ -140,7 +139,7 @@ public class WorkoutsFragment extends Fragment {
 
         recyclerView.setAdapter(workoutPlanRecyclerAdapter);
 
-    }
+    }*/
 
     /*
     private void setupWorkoutPlanRecyclerView(View view) {

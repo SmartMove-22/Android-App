@@ -1,14 +1,18 @@
 package pt.ua.hackaton.smartmove;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import pt.ua.hackaton.smartmove.fragments.CoachTraineesFragment;
+import pt.ua.hackaton.smartmove.fragments.CoachingFragment;
+import pt.ua.hackaton.smartmove.fragments.ReportFragment;
+import pt.ua.hackaton.smartmove.fragments.WorkoutsFragment;
+import pt.ua.hackaton.smartmove.utils.SharedPreferencesHandler;
+import pt.ua.hackaton.smartmove.utils.UserType;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,9 +39,10 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
-            String userType = getIntent().getStringExtra("user_type");
+            SharedPreferencesHandler sharedPreferencesHandler = new SharedPreferencesHandler(getApplicationContext());
+            UserType userType = UserType.valueOf(sharedPreferencesHandler.getPreferenceString(getString(R.string.user_type_preference), UserType.TRAINEE.name()));
 
-            if (userType.equals("TRAINEE")) {
+            if (userType == UserType.TRAINEE) {
 
                 if (item.getItemId() == R.id.workouts_menu_item) {
                     fragmentManager.beginTransaction()

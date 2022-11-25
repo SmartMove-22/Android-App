@@ -1,4 +1,4 @@
-package pt.ua.hackaton.smartmove;
+package pt.ua.hackaton.smartmove.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,17 +16,17 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import pt.ua.hackaton.smartmove.data.AssignedExercise;
-import pt.ua.hackaton.smartmove.data.Trainee;
-import pt.ua.hackaton.smartmove.recyclers.TraineesOverviewRecyclerViewAdapter;
-import pt.ua.hackaton.smartmove.recyclers.TraineesRecyclerViewAdapter;
+import pt.ua.hackaton.smartmove.CameraActivity;
+import pt.ua.hackaton.smartmove.R;
+import pt.ua.hackaton.smartmove.data.Exercise;
+import pt.ua.hackaton.smartmove.recyclers.SuggestedExercisesRecyclerViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CoachTraineeOverviewFragment#newInstance} factory method to
+ * Use the {@link CoachAddExercisesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CoachTraineeOverviewFragment extends Fragment {
+public class CoachAddExercisesFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,7 +37,7 @@ public class CoachTraineeOverviewFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public CoachTraineeOverviewFragment() {
+    public CoachAddExercisesFragment() {
         // Required empty public constructor
     }
 
@@ -47,11 +47,11 @@ public class CoachTraineeOverviewFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CoachTraineeOverviewFragment.
+     * @return A new instance of fragment CoachAddExercisesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CoachTraineeOverviewFragment newInstance(String param1, String param2) {
-        CoachTraineeOverviewFragment fragment = new CoachTraineeOverviewFragment();
+    public static CoachAddExercisesFragment newInstance(String param1, String param2) {
+        CoachAddExercisesFragment fragment = new CoachAddExercisesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,33 +72,36 @@ public class CoachTraineeOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_coach_trainee_overview, container, false);
+        return inflater.inflate(R.layout.fragment_coach_add_exercises, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
         super.onViewCreated(view, savedInstanceState);
 
         // data to populate the RecyclerView with
-        List<AssignedExercise> trainees = new ArrayList<>();
-        trainees.add(new AssignedExercise(1, null, "Chest Exercise", null, 5, 5, 200, null, true, .5, .5, .5,200,0));
-        trainees.add(new AssignedExercise(1, null, "Abs Exercise", null, 5, 5, 200, null, false, .25, .4, .5,90,0));
+        List<Exercise> exercisesNames = new ArrayList<>();
+        exercisesNames.add(new Exercise(1, null, "Chest Muscles", null, 1,1,300));
+        exercisesNames.add(new Exercise(1, null, "Abdominal Muscles", null, 1,1,300));
+        exercisesNames.add(new Exercise(1, null, "Push Ups", null, 1,1,300));
 
-        setupTraineeExercisesOverviewRecyclerView(view, trainees);
+        setupSuggestedExerciseRecyclerView(view, exercisesNames);
 
     }
 
-    private void setupTraineeExercisesOverviewRecyclerView(View view, List<AssignedExercise> data) {
+    private void setupSuggestedExerciseRecyclerView(View view, List<Exercise> data) {
 
-        RecyclerView recyclerView = view.findViewById(R.id.coachTraineeOverviewExercisesRecyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.coachAvailableExercisesRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        TraineesOverviewRecyclerViewAdapter adapter = new TraineesOverviewRecyclerViewAdapter(getContext(), data);
-        adapter.setClickListener((view1, position) -> {
-            if (getActivity() != null) {
-                Intent myIntent = new Intent(getActivity(), CameraActivity.class);
-                getActivity().startActivity(myIntent);
+        SuggestedExercisesRecyclerViewAdapter adapter = new SuggestedExercisesRecyclerViewAdapter(getContext(), data);
+        adapter.setClickListener(new SuggestedExercisesRecyclerViewAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                if (getActivity() != null) {
+                    Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+                    getActivity().startActivity(myIntent);
+                }
             }
         });
 

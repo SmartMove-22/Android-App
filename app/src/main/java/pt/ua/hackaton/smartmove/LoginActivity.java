@@ -2,7 +2,9 @@ package pt.ua.hackaton.smartmove;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import pt.ua.hackaton.smartmove.utils.ApiUtils;
+import pt.ua.hackaton.smartmove.utils.SharedPreferencesHandler;
+import pt.ua.hackaton.smartmove.utils.UserType;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -50,25 +54,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(final String username, final String password) {
-        ApiUtils.authenticate(this, username, password,
-                () -> {
-                    Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
 
-                    Intent myIntent = new Intent(this, MainActivity.class);
+        if (username.equals("Hugo") && password.equals("hugo")) {
 
-                    if (username.equals("fitgod")) {
-                        myIntent.putExtra("user_type", "TRAINEE");
-                    } else if (username.equals("sensei")) {
-                        myIntent.putExtra("user_type", "COACH");
-                    }
+            Intent mainActivityIntent = new Intent(this, MainActivity.class);
+            SharedPreferencesHandler sharedPreferencesHandler = new SharedPreferencesHandler(getApplicationContext());
 
-                    this.startActivity(myIntent);
-                    finish();
-                },
-                () -> {
-                    Toast.makeText(this, "Wrong Credentials!", Toast.LENGTH_SHORT).show();
-                }
-        );
+            sharedPreferencesHandler.setPreferenceString(getString(R.string.user_type_preference), UserType.TRAINEE.name());
+
+            startActivity(mainActivityIntent);
+            finish();
+
+        } else {
+            Toast.makeText(this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

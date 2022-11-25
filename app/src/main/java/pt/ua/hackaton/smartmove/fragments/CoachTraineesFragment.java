@@ -1,4 +1,4 @@
-package pt.ua.hackaton.smartmove;
+package pt.ua.hackaton.smartmove.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,10 +16,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import pt.ua.hackaton.smartmove.data.Exercise;
+import pt.ua.hackaton.smartmove.CameraActivity;
+import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.Trainee;
 import pt.ua.hackaton.smartmove.recyclers.TraineesRecyclerViewAdapter;
-import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
