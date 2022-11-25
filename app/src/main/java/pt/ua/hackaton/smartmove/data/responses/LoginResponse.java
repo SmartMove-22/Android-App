@@ -1,4 +1,4 @@
-package pt.ua.hackaton.smartmove.data;
+package pt.ua.hackaton.smartmove.data.responses;
 
 public class LoginResponse {
 

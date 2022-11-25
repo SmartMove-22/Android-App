@@ -124,7 +124,6 @@ public class ReportFragment extends Fragment {
         }
 
         setupDaysRecyclerView(view, range7Days);
-        setupWorkoutPlanRecyclerView(view, exercisesNames);
 
     }
 
@@ -145,20 +144,6 @@ public class ReportFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
         // reportsViewModel.setTimestamp(data.get(7).toString());
-    }
-
-    private void setupWorkoutPlanRecyclerView(View view, List<AssignedExercise> data) {
-
-        RecyclerView recyclerView = view.findViewById(R.id.reportExercisesProgramRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        workoutPlanRecyclerViewAdapter = new WorkoutPlanRecyclerViewAdapter(getContext(), data);
-
-        workoutPlanRecyclerViewAdapter.setClickListener((view1, position) -> {
-            Toast.makeText(getContext(), "Clicked On item " + position, Toast.LENGTH_SHORT).show();
-        });
-
-        recyclerView.setAdapter(workoutPlanRecyclerViewAdapter);
     }
 
 }
