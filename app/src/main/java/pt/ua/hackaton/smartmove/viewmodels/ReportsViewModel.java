@@ -1,15 +1,11 @@
-package pt.ua.hackaton.smartmove.models;
+package pt.ua.hackaton.smartmove.viewmodels;
 
 import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
-import java.util.List;
-
-import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.data.Report;
 import pt.ua.hackaton.smartmove.utils.ApiUtils;
 import retrofit2.Call;

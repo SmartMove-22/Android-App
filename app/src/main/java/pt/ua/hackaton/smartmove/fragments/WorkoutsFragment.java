@@ -1,8 +1,11 @@
 package pt.ua.hackaton.smartmove.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,36 +14,23 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import pt.ua.hackaton.smartmove.CameraActivity;
 import pt.ua.hackaton.smartmove.R;
-import pt.ua.hackaton.smartmove.data.AssignedExercise;
-import pt.ua.hackaton.smartmove.data.Category;
 import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.data.mocks.ExercisesMocks;
-import pt.ua.hackaton.smartmove.models.WorkoutsViewModel;
+import pt.ua.hackaton.smartmove.viewmodels.WorkoutsViewModel;
 import pt.ua.hackaton.smartmove.recyclers.SuggestedExercisesRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
- */
 public class WorkoutsFragment extends Fragment {
 
     private WorkoutPlanRecyclerViewAdapter workoutPlanRecyclerAdapter;
 
     private WorkoutsViewModel workoutsViewModel;
 
-    public WorkoutsFragment() {
-        // Required empty public constructor
-    }
+    public WorkoutsFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +50,22 @@ public class WorkoutsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setupSuggestedExerciseRecyclerView(view, ExercisesMocks.getExercisesList());
+        setDashboardInformation(view);
+
+    }
+
+    private void setDashboardInformation(View view) {
+
+        TextView exerciseTimePlaceholder = view.findViewById(R.id.mainPanelStepsPlaceholder);
+        TextView caloriesBurnPlaceholder = view.findViewById(R.id.mainPanelCaloriesPlaceholder);
+
+        workoutsViewModel.getTodayExerciseSeconds().observe(getViewLifecycleOwner(),
+                exerciseTime -> exerciseTimePlaceholder.setText(String.valueOf(exerciseTime))
+        );
+
+        workoutsViewModel.getTodayExerciseCaloriesBurn().observe(getViewLifecycleOwner(),
+                caloriesBurn -> caloriesBurnPlaceholder.setText(String.valueOf(caloriesBurn))
+        );
 
     }
 

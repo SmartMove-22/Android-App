@@ -26,7 +26,6 @@ import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,7 @@ import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.LandmarkPoint;
 import pt.ua.hackaton.smartmove.data.requests.ExerciseDataRequest;
 import pt.ua.hackaton.smartmove.data.responses.ExerciseAnalysisResponse;
-import pt.ua.hackaton.smartmove.models.CameraStatsViewModel;
+import pt.ua.hackaton.smartmove.viewmodels.CameraStatsViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

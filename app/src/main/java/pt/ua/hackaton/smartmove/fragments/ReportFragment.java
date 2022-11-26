@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -22,7 +21,7 @@ import java.util.List;
 import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.AssignedExercise;
 import pt.ua.hackaton.smartmove.data.Category;
-import pt.ua.hackaton.smartmove.models.ReportsViewModel;
+import pt.ua.hackaton.smartmove.viewmodels.ReportsViewModel;
 import pt.ua.hackaton.smartmove.recyclers.DaysOfWeekRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
 

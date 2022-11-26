@@ -27,13 +27,6 @@ public class MainActivity extends AppCompatActivity {
             this.getSupportActionBar().hide();
         }
 
-        /*
-        findViewById(R.id.startCameraBtn).setOnClickListener(view -> {
-            Intent myIntent = new Intent(MainActivity.this, CameraActivity.class);
-            MainActivity.this.startActivity(myIntent);
-        });
-        */
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 

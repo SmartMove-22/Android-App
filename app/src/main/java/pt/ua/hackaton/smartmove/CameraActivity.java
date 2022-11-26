@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
-import pt.ua.hackaton.smartmove.models.CameraStatsViewModel;
+import pt.ua.hackaton.smartmove.viewmodels.CameraStatsViewModel;
 import pt.ua.hackaton.smartmove.permissions.CameraPermission;
 import pt.ua.hackaton.smartmove.utils.CameraUtils;
 
