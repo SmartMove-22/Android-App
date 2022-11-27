@@ -8,15 +8,15 @@ import pt.ua.hackaton.smartmove.data.LandmarkPoint;
 
 public class ExerciseDataRequest {
 
-    private long time;
+    private final long time;
 
     @SerializedName("first_half")
-    private boolean firstHalf;
+    private final boolean firstHalf;
 
     @SerializedName("exercise_category")
-    private String exerciseCategory;
+    private final String exerciseCategory;
 
-    private List<LandmarkPoint> landmarks;
+    private final List<LandmarkPoint> landmarks;
 
     public ExerciseDataRequest(long time, boolean firstHalf, String exerciseCategory, List<LandmarkPoint> landmarks) {
         this.time = time;

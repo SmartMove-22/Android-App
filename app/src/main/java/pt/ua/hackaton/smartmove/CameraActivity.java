@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,14 +21,17 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
+import pt.ua.hackaton.smartmove.handlers.PoseDetectorHandler;
 import pt.ua.hackaton.smartmove.viewmodels.CameraStatsViewModel;
 import pt.ua.hackaton.smartmove.permissions.CameraPermission;
 import pt.ua.hackaton.smartmove.utils.CameraUtils;
+import pt.ua.hackaton.smartmove.viewmodels.PoseDetectorViewModel;
 
 public class CameraActivity extends AppCompatActivity {
 
     private boolean recordingExercise = false;
     AtomicReference<List<Double>> values = new AtomicReference<>();
+    private PoseDetectorViewModel poseDetectorViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,14 @@ public class CameraActivity extends AppCompatActivity {
         TextView cameraExerciseName = findViewById(R.id.exerciseCardNameTxt);
         cameraExerciseName.setText(exerciseName);
 
-        setupCamera();
+        poseDetectorViewModel = new ViewModelProvider(this).get(PoseDetectorViewModel.class);
+
+        setupCamera(exerciseCategory);
+
+        poseDetectorViewModel.getExerciseRepetitions().observe(this, value -> {
+            TextView exerciseRepetitionsTextView = findViewById(R.id.cameraRepetitionsCounterTextView);
+            exerciseRepetitionsTextView.setText(String.valueOf(value));
+        });
 
         findViewById(R.id.cameraSaveExerciseBtn).setOnClickListener(view -> {
 
@@ -72,7 +83,7 @@ public class CameraActivity extends AppCompatActivity {
 
     }
 
-    private void setupCamera() {
+    private void setupCamera(String exerciseCategory) {
 
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         ProcessCameraProvider cameraProvider = null;
@@ -91,15 +102,27 @@ public class CameraActivity extends AppCompatActivity {
         ProcessCameraProvider finalCameraProvider = cameraProvider;
         ImageView cameraFrame = findViewById(R.id.cameraPreview);
         Button changeRecordingStatusBtn = findViewById(R.id.changeRecordingStatusBtn);
+        CameraUtils cameraUtils = new CameraUtils();
+        PoseDetectorHandler poseDetectorHandler = PoseDetectorHandler.getInstance();
 
         findViewById(R.id.changeRecordingStatusBtn).setOnClickListener(view -> cameraProviderFuture.addListener(() -> {
 
             if (!recordingExercise) {
-                values.set(CameraUtils.startCameraX(this, cameraFrame, finalCameraProvider));
+
+                cameraUtils.startCameraX(this, cameraFrame, finalCameraProvider);
                 changeRecordingStatusBtn.setText("Stop");
+
+                poseDetectorHandler.startScheduler();
+                poseDetectorHandler.setViewModel(poseDetectorViewModel);
+                poseDetectorHandler.setExerciseCategory(exerciseCategory);
+
             } else {
-                CameraUtils.stopCameraX(finalCameraProvider);
+
+                cameraUtils.stopCameraX(finalCameraProvider);
                 changeRecordingStatusBtn.setText("Start");
+
+                poseDetectorHandler.stopScheduler();
+
             }
 
             recordingExercise = !recordingExercise;
