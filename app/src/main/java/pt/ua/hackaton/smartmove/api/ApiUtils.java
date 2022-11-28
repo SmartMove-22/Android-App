@@ -1,11 +1,15 @@
-package pt.ua.hackaton.smartmove.utils;
+package pt.ua.hackaton.smartmove.api;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import pt.ua.hackaton.smartmove.R;
+import pt.ua.hackaton.smartmove.api.ApiService;
 import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.data.requests.ExerciseDataRequest;
 import pt.ua.hackaton.smartmove.data.requests.LoginRequest;
@@ -21,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiUtils {
 
-    private static final String API_BASE_URI = "http://20.163.184.110";
+    private static final String API_BASE_URI = "http://20.229.92.93";
     private static final Retrofit retrofit = new Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(API_BASE_URI)
@@ -74,8 +78,23 @@ public class ApiUtils {
         return apiService.getReportForDay(auth_token, new ReportRequest(timestamp));
     }
 
-    public static Call<ExerciseAnalysisResponse> submitExerciseDataForAnalysis(int exerciseId, ExerciseDataRequest exerciseDataRequest) {
-        return apiService.submitExerciseDataForAnalysis(exerciseId, exerciseDataRequest);
+    public static Call<ExerciseAnalysisResponse> submitExerciseDataForAnalysis(ExerciseDataRequest exerciseDataRequest) {
+        return apiService.submitExerciseDataForAnalysis(exerciseDataRequest);
+    }
+
+    public static Response<ExerciseAnalysisResponse> sendExerciseAnalysis(ExerciseDataRequest exerciseDataRequest) {
+
+        Log.d("SmartMove", "Debug 1");
+
+        Call<ExerciseAnalysisResponse> call = ApiUtils.submitExerciseDataForAnalysis(exerciseDataRequest);
+
+        try {
+            return call.execute();
+        } catch (Exception exception) {
+            Log.e("SmartMove", "An error has occurred while executing the API endpoint." + exception.getMessage());
+            return null;
+        }
+
     }
 
 }

@@ -5,17 +5,17 @@ import android.util.Log;
 import com.google.mlkit.vision.pose.Pose;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import pt.ua.hackaton.smartmove.api.service.ExerciseDataService;
 import pt.ua.hackaton.smartmove.data.LandmarkPoint;
-import pt.ua.hackaton.smartmove.data.database.entities.ExerciseReportEntity;
 import pt.ua.hackaton.smartmove.data.requests.ExerciseDataRequest;
 import pt.ua.hackaton.smartmove.data.responses.ExerciseAnalysisResponse;
-import pt.ua.hackaton.smartmove.utils.ExerciseDataAPI;
+import pt.ua.hackaton.smartmove.utils.ExerciseCategory;
 import pt.ua.hackaton.smartmove.viewmodels.PoseDetectorViewModel;
 import retrofit2.Response;
 
@@ -24,10 +24,12 @@ public class PoseDetectorHandler {
     private static PoseDetectorHandler instance;
 
     private Pose currentPose;
-    private String exerciseCategory;
+    private ExerciseCategory exerciseCategory;
     private ScheduledExecutorService scheduler;
     private Long initialTime;
-    private boolean secondHalf;
+    private boolean firstHalf;
+    private List<Consumer<Response<ExerciseAnalysisResponse>>> callbacks;
+
     private PoseDetectorViewModel viewModel;
 
     private PoseDetectorHandler() {
@@ -35,7 +37,7 @@ public class PoseDetectorHandler {
         this.exerciseCategory = null;
         this.scheduler = null;
         this.initialTime = null;
-        this.secondHalf = false;
+        this.firstHalf = true;
     }
 
     public synchronized Pose getCurrentPose() {
@@ -46,7 +48,7 @@ public class PoseDetectorHandler {
         this.currentPose = currentPose;
     }
 
-    public void setExerciseCategory(String exerciseCategory) {
+    public void setExerciseCategory(ExerciseCategory exerciseCategory) {
         this.exerciseCategory = exerciseCategory;
     }
 
@@ -60,6 +62,10 @@ public class PoseDetectorHandler {
 
     public void setViewModel(PoseDetectorViewModel viewModel) {
         this.viewModel = viewModel;
+    }
+
+    public void setFirstHalf(boolean firstHalf) {
+        this.firstHalf = firstHalf;
     }
 
     public synchronized void startScheduler() {
@@ -88,27 +94,10 @@ public class PoseDetectorHandler {
                 .map(LandmarkPoint::fromPoseLandmark)
                 .collect(Collectors.toList());
 
-        ExerciseDataRequest exerciseDataRequest = new ExerciseDataRequest(getElapsedTime(), secondHalf, exerciseCategory, allLandmarkPoints);
+        ExerciseDataRequest exerciseDataRequest = new ExerciseDataRequest(getElapsedTime(), firstHalf, exerciseCategory.name(), allLandmarkPoints);
+        ExerciseDataService exerciseDataService = ExerciseDataService.getInstance();
 
-        ExerciseDataAPI exerciseDataAPI = new ExerciseDataAPI();
-        Response<ExerciseAnalysisResponse> exerciseAnalysisRetrofit = exerciseDataAPI.sendExerciseAnalysis(exerciseDataRequest);
-
-        if (exerciseAnalysisRetrofit.isSuccessful()) {
-
-            ExerciseAnalysisResponse exerciseAnalysisResponse = exerciseAnalysisRetrofit.body();
-
-            if (exerciseAnalysisResponse == null) return;
-
-            viewModel.getCurrentPose().postValue(currentPose);
-            viewModel.getExerciseCorrectness().postValue(exerciseAnalysisResponse.getCorrectness());
-            viewModel.getExerciseProgress().postValue(exerciseAnalysisResponse.getProgress());
-
-            if (exerciseAnalysisResponse.isFinishedRepetition()) {
-                int repetitions = Optional.ofNullable(viewModel.getExerciseRepetitions().getValue()).orElse(0);
-                viewModel.getExerciseRepetitions().postValue(repetitions+1);
-            }
-
-        }
+        exerciseDataService.sendExerciseAnalysis(exerciseDataRequest);
 
     }
 
@@ -121,11 +110,7 @@ public class PoseDetectorHandler {
         this.exerciseCategory = null;
         this.scheduler = null;
         this.initialTime = null;
-        this.secondHalf = false;
-    }
-
-    public ExerciseReportEntity createExerciseReport() {
-        return null;
+        this.firstHalf = false;
     }
 
     public static PoseDetectorHandler getInstance() {

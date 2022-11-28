@@ -2,6 +2,7 @@ package pt.ua.hackaton.smartmove.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import pt.ua.hackaton.smartmove.CameraActivity;
@@ -51,20 +53,21 @@ public class WorkoutsFragment extends Fragment {
 
         setupSuggestedExerciseRecyclerView(view, ExercisesMocks.getExercisesList());
         setDashboardInformation(view);
-
     }
 
     private void setDashboardInformation(View view) {
+
+        DecimalFormat decimalFormat = new DecimalFormat("##.##");
 
         TextView exerciseTimePlaceholder = view.findViewById(R.id.mainPanelStepsPlaceholder);
         TextView caloriesBurnPlaceholder = view.findViewById(R.id.mainPanelCaloriesPlaceholder);
 
         workoutsViewModel.getTodayExerciseSeconds().observe(getViewLifecycleOwner(),
-                exerciseTime -> exerciseTimePlaceholder.setText(String.valueOf(exerciseTime))
+                exerciseTime -> exerciseTimePlaceholder.setText(decimalFormat.format(exerciseTime != null ? exerciseTime : 0))
         );
 
         workoutsViewModel.getTodayExerciseCaloriesBurn().observe(getViewLifecycleOwner(),
-                caloriesBurn -> caloriesBurnPlaceholder.setText(String.valueOf(caloriesBurn))
+                caloriesBurn -> caloriesBurnPlaceholder.setText(decimalFormat.format(caloriesBurn != null ? caloriesBurn : 0))
         );
 
     }
@@ -83,7 +86,7 @@ public class WorkoutsFragment extends Fragment {
 
                 myIntent.putExtra("exercise_id", data.get(position).getId());
                 myIntent.putExtra("exercise_name", data.get(position).getName());
-                myIntent.putExtra("exercise_category_name", data.get(position).getCategory().getCategory());
+                myIntent.putExtra("exercise_category_name", data.get(position).getCategory().getCategory().name());
 
                 getActivity().startActivity(myIntent);
 

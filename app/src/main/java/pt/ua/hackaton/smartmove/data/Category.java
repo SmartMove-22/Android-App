@@ -1,12 +1,14 @@
 package pt.ua.hackaton.smartmove.data;
 
+import pt.ua.hackaton.smartmove.utils.ExerciseCategory;
+
 public class Category {
 
     private final long id;
-    private final String category;
+    private final ExerciseCategory category;
     private final String subCategory;
 
-    public Category(long id, String category, String subCategory) {
+    public Category(long id, ExerciseCategory category, String subCategory) {
         this.id = id;
         this.category = category;
         this.subCategory = subCategory;
@@ -16,7 +18,7 @@ public class Category {
         return id;
     }
 
-    public String getCategory() {
+    public ExerciseCategory getCategory() {
         return category;
     }
 

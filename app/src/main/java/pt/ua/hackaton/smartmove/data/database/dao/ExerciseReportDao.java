@@ -21,10 +21,10 @@ public interface ExerciseReportDao {
     @Query("SELECT * FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now', 'start of day', '-' || :howManyDaysBefore || ' day') AND strftime('%s', 'now', 'start of day', '-' || :howManyDaysBefore-1 || ' day');")
     LiveData<List<ExerciseReportEntity>> getDailyReportsData(int howManyDaysBefore);
 
-    @Query("SELECT sum(exercise_duration_seconds) FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now') AND strftime('%s', 'now', 'start of day');")
+    @Query("SELECT sum(exercise_duration_seconds) FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now', 'start of day') AND  strftime('%s', 'now');")
     LiveData<Long> getTodayExerciseTime();
 
-    @Query("SELECT sum(calories_burn) FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now') AND strftime('%s', 'now', 'start of day');")
+    @Query("SELECT sum(calories_burn) FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now', 'start of day') AND  strftime('%s', 'now');")
     LiveData<Double> getTodayCaloriesBurn();
 
 }

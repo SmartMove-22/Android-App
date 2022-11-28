@@ -1,4 +1,4 @@
-package pt.ua.hackaton.smartmove.utils;
+package pt.ua.hackaton.smartmove.api;
 
 import java.util.List;
 
@@ -24,8 +24,8 @@ public interface ApiService {
     @GET("exercises")
     Call<List<Exercise>> getExercises();
 
-    @POST("trainee/exercise/{exerciseId}/data")
-    Call<ExerciseAnalysisResponse> submitExerciseDataForAnalysis(@Path("exerciseId") int exerciseId, @Body ExerciseDataRequest exerciseDataRequest);
+    @POST("exercise/analysis")
+    Call<ExerciseAnalysisResponse> submitExerciseDataForAnalysis(@Body ExerciseDataRequest exerciseDataRequest);
 
     @GET("trainee/exercises")
     Call<List<Exercise>> getExercises(@Header("Authorization") String authorization);

@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import pt.ua.hackaton.smartmove.data.Report;
-import pt.ua.hackaton.smartmove.utils.ApiUtils;
+import pt.ua.hackaton.smartmove.api.ApiUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +36,7 @@ public class ReportsViewModel extends ViewModel {
 
     public LiveData<Report> getReport() {
         if (report == null) {
-            report = new MutableLiveData<Report>();
+            report = new MutableLiveData<>();
             loadReport();
         }
         return report;

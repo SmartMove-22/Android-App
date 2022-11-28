@@ -1,6 +1,7 @@
 package pt.ua.hackaton.smartmove.viewmodels;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -20,6 +21,8 @@ public class WorkoutsViewModel extends AndroidViewModel {
 
         this.todayExerciseSeconds = exerciseReportDao.getTodayExerciseTime();
         this.todayCaloriesBurn = exerciseReportDao.getTodayCaloriesBurn();
+
+        Log.d("SmartMove", "EXERCISE TIME: " + exerciseReportDao.getTodayExerciseTime().getValue());
 
     }
 

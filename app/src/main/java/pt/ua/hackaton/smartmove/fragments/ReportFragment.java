@@ -21,6 +21,7 @@ import java.util.List;
 import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.AssignedExercise;
 import pt.ua.hackaton.smartmove.data.Category;
+import pt.ua.hackaton.smartmove.utils.ExerciseCategory;
 import pt.ua.hackaton.smartmove.viewmodels.ReportsViewModel;
 import pt.ua.hackaton.smartmove.recyclers.DaysOfWeekRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
@@ -111,15 +112,17 @@ public class ReportFragment extends Fragment {
         List<LocalDateTime> range7Days = new ArrayList<>();
 
         List<AssignedExercise> exercisesNames = new ArrayList<>();
-        exercisesNames.add(new AssignedExercise(1, null, "Chest Muscles", new Category(1, "squat", ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
-        exercisesNames.add(new AssignedExercise(1, null, "Abdominal Muscles", new Category(1, "squat", ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
-        exercisesNames.add(new AssignedExercise(1, null, "Push Ups", new Category(1, "squat", ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
+        exercisesNames.add(new AssignedExercise(1, null, "Chest Muscles", new Category(1, ExerciseCategory.SQUAT, ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
+        exercisesNames.add(new AssignedExercise(1, null, "Abdominal Muscles", new Category(1, ExerciseCategory.SQUAT, ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
+        exercisesNames.add(new AssignedExercise(1, null, "Push Ups", new Category(1, ExerciseCategory.SQUAT, ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
 
         for (int i = -7; i < 7; i++) {
+
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DATE, i);
 
             range7Days.add(LocalDateTime.ofInstant(calendar.getTime().toInstant(), ZoneId.systemDefault()));
+
         }
 
         setupDaysRecyclerView(view, range7Days);
