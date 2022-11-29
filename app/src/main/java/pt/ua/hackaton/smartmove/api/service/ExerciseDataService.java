@@ -23,8 +23,6 @@ public class ExerciseDataService {
 
     public Response<ExerciseAnalysisResponse> sendExerciseAnalysis(ExerciseDataRequest exerciseDataRequest) {
 
-        Log.d("SmartMove", "Debug 0");
-
         Response<ExerciseAnalysisResponse> exerciseAnalysisResponseResponse = ApiUtils.sendExerciseAnalysis(exerciseDataRequest);
         callbacks.forEach(responseFunction -> responseFunction.accept(exerciseAnalysisResponseResponse));
         return exerciseAnalysisResponseResponse;

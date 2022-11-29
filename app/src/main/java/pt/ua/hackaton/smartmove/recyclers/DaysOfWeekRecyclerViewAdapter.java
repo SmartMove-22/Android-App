@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
@@ -17,15 +20,16 @@ import java.util.List;
 import java.util.Locale;
 
 import pt.ua.hackaton.smartmove.R;
+import pt.ua.hackaton.smartmove.recyclers.utils.DayOfWeekRecyclerItem;
 
 public class DaysOfWeekRecyclerViewAdapter extends RecyclerView.Adapter<DaysOfWeekRecyclerViewAdapter.ViewHolder>  {
 
-    private final List<LocalDateTime> mData;
+    private final List<DayOfWeekRecyclerItem> mData;
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public DaysOfWeekRecyclerViewAdapter(Context context, List<LocalDateTime> data) {
+    public DaysOfWeekRecyclerViewAdapter(Context context, List<DayOfWeekRecyclerItem> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -40,9 +44,20 @@ public class DaysOfWeekRecyclerViewAdapter extends RecyclerView.Adapter<DaysOfWe
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(DaysOfWeekRecyclerViewAdapter.ViewHolder holder, int position) {
-        LocalDateTime date = mData.get(position);
+
+        DayOfWeekRecyclerItem dayOfWeekRecyclerItem = mData.get(position);
+        LocalDateTime date = dayOfWeekRecyclerItem.getLocalDateTime();
+        boolean isActive = dayOfWeekRecyclerItem.isActive();
+
         holder.dayOfMonthTextView.setText(String.valueOf(date.getDayOfMonth()));
         holder.monthTextView.setText(String.valueOf(date.toLocalDate().getMonth().getDisplayName(TextStyle.SHORT, Locale.US)));
+
+        if (isActive) {
+            holder.dayCard.setCardBackgroundColor(dayOfWeekRecyclerItem.getActiveColorResourceId());
+        } else {
+            holder.dayCard.setCardBackgroundColor(dayOfWeekRecyclerItem.getInactiveColorResourceId());
+        }
+
     }
 
     // total number of rows
@@ -57,11 +72,13 @@ public class DaysOfWeekRecyclerViewAdapter extends RecyclerView.Adapter<DaysOfWe
 
         TextView dayOfMonthTextView;
         TextView monthTextView;
+        CardView dayCard;
 
         ViewHolder(View itemView) {
             super(itemView);
             dayOfMonthTextView = itemView.findViewById(R.id.dayOfMonthTxt);
             monthTextView = itemView.findViewById(R.id.monthTxt);
+            dayCard = itemView.findViewById(R.id.recyclerDayCardView);
             itemView.setOnClickListener(this);
             Log.d("DEBUG", String.valueOf(dayOfMonthTextView));
         }
@@ -73,7 +90,7 @@ public class DaysOfWeekRecyclerViewAdapter extends RecyclerView.Adapter<DaysOfWe
     }
 
     // convenience method for getting data at click position
-    LocalDateTime getItem(int id) {
+    DayOfWeekRecyclerItem getItem(int id) {
         return mData.get(id);
     }
 

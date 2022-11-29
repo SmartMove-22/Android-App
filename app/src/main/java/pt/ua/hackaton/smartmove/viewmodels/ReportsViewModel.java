@@ -1,64 +1,65 @@
 package pt.ua.hackaton.smartmove.viewmodels;
 
-import android.content.SharedPreferences;
+import android.app.Application;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import pt.ua.hackaton.smartmove.data.Report;
-import pt.ua.hackaton.smartmove.api.ApiUtils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import pt.ua.hackaton.smartmove.data.database.AppDatabase;
+import pt.ua.hackaton.smartmove.data.database.dao.ExerciseReportDao;
 
-public class ReportsViewModel extends ViewModel {
+public class ReportsViewModel extends AndroidViewModel {
 
-    private MutableLiveData<String> timestamp;
-    private MutableLiveData<Report> report;
+    private final LiveData<Double> todayCaloriesBurn;
+    private final LiveData<Double> todayCorrectnessAverage;
+    private final LiveData<Long> todayExerciseTimeSum;
 
-    private SharedPreferences sharedPreferences;
+    private final ExerciseReportDao exerciseReportDao;
 
-    public void setSharedPreferences(SharedPreferences prefs) {
-        sharedPreferences = prefs;
+    public ReportsViewModel(@NonNull Application application) {
+
+        super(application);
+
+        exerciseReportDao = AppDatabase.getInstance(application).exerciseReportDao();
+
+        this.todayCaloriesBurn = exerciseReportDao.getTodayCaloriesBurn();
+        this.todayCorrectnessAverage = exerciseReportDao.getTodayCaloriesBurn();
+        this.todayExerciseTimeSum = exerciseReportDao.getTodayExerciseTime();
+
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp.setValue(timestamp);
+    public LiveData<Double> getTodayCaloriesBurn() {
+        return todayCaloriesBurn;
     }
 
-    public LiveData<String> getTimestamp() {
-        if (timestamp == null) {
-            timestamp = new MutableLiveData<>();
+    public LiveData<Double> getTodayCorrectnessAverage() {
+        return todayCorrectnessAverage;
+    }
+
+    public LiveData<Long> getTodayExerciseTimeSum() {
+        return todayExerciseTimeSum;
+    }
+
+    public LiveData<Long> getDailyExerciseTimeSum(int offset) {
+        if (offset <= 0) {
+            return exerciseReportDao.getTodayExerciseTime();
         }
-        return timestamp;
+        return exerciseReportDao.getTotalDailyExerciseTime(offset, offset-1);
     }
 
-    public LiveData<Report> getReport() {
-        if (report == null) {
-            report = new MutableLiveData<>();
-            loadReport();
+    public LiveData<Double> getDailyCaloriesSum(int offset) {
+        if (offset <= 0) {
+            return exerciseReportDao.getTodayCaloriesBurn();
         }
-        return report;
+        return exerciseReportDao.getTotalDailyCalories(offset, offset-1);
     }
 
-    public void fetchReport() {
-        loadReport();
-    }
-
-    private void loadReport() {
-        String auth_token = sharedPreferences.getString("token", "");
-        ApiUtils.getReportForDay(auth_token, timestamp.getValue()).enqueue(new Callback<Report>() {
-            @Override
-            public void onResponse(Call<Report> call, Response<Report> response) {
-                report.setValue(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Report> call, Throwable t) {
-                // uhhhhh...
-            }
-        });
+    public LiveData<Double> getDailyCorrectnessAvg(int offset) {
+        if (offset <= 0) {
+            return exerciseReportDao.getTodayCorrectnessAverage();
+        }
+        return exerciseReportDao.getDailyAverageCorrectness(offset, offset-1);
     }
 
 }

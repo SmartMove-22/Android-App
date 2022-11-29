@@ -310,7 +310,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
             <TextView
-                android:id="@+id/exerciseReportTotalTimeUnitPlaceholder"
+                android:id="@+id/exerciseReportTotalTimeUnitPlaceholder2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
@@ -319,8 +319,8 @@
                 android:text="secs."
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/exerciseReportTotalTimePlaceholder"
-                app:layout_constraintTop_toTopOf="@+id/imageView7" />
+                card_view:layout_constraintStart_toEndOf="@+id/exerciseReportTotalTimePlaceholder"
+                card_view:layout_constraintTop_toTopOf="@+id/imageView7" />
 
             <TextView
                 android:id="@+id/exerciseReportTotalTimeTextView"
@@ -350,7 +350,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/correctnessChartCard"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="240dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:elevation="10dp"
@@ -367,19 +367,43 @@
             tools:layout_editor_absoluteX="11dp"
             tools:layout_editor_absoluteY="12dp">
 
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/heartRateBarChart"
+            <TextView
+                android:id="@+id/exerciseReportChartTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins"
+                android:text="Correctness"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/correctnessBarChart"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/exerciseReportChartTitle"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/exerciseReportTotalTimeTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Correctness evolution over time"
+                android:textSize="9sp"
+                app:layout_constraintStart_toStartOf="@+id/exerciseReportChartTitle"
+                app:layout_constraintTop_toBottomOf="@+id/exerciseReportChartTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

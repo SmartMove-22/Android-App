@@ -1,11 +1,5 @@
 package pt.ua.hackaton.smartmove;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -16,14 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.mlkit.vision.pose.Pose;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
-import java.util.List;
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.text.DecimalFormat;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
 
 import pt.ua.hackaton.smartmove.api.service.ExerciseDataService;
 import pt.ua.hackaton.smartmove.data.database.AppDatabase;
@@ -32,12 +29,10 @@ import pt.ua.hackaton.smartmove.data.database.entities.ExerciseReportEntity;
 import pt.ua.hackaton.smartmove.data.responses.ExerciseAnalysisResponse;
 import pt.ua.hackaton.smartmove.handlers.CurrentExerciseHandler;
 import pt.ua.hackaton.smartmove.handlers.PoseDetectorHandler;
-import pt.ua.hackaton.smartmove.utils.ExerciseCategory;
-import pt.ua.hackaton.smartmove.viewmodels.CameraStatsViewModel;
 import pt.ua.hackaton.smartmove.permissions.CameraPermission;
 import pt.ua.hackaton.smartmove.utils.CameraUtils;
+import pt.ua.hackaton.smartmove.utils.ExerciseCategory;
 import pt.ua.hackaton.smartmove.viewmodels.PoseDetectorViewModel;
-import retrofit2.Response;
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -74,12 +69,30 @@ public class CameraActivity extends AppCompatActivity {
 
         setupCamera((int) exerciseId, exerciseCategory);
 
-        poseDetectorViewModel.getExerciseRepetitions().observe(this, value -> {
-            TextView exerciseRepetitionsTextView = findViewById(R.id.cameraRepetitionsCounterTextView);
-            exerciseRepetitionsTextView.setText(String.valueOf(value));
-        });
+        observerPoseDetectorVM();
 
         findViewById(R.id.cameraSaveExerciseBtn).setOnClickListener(view -> onSaveButtonClick());
+
+    }
+
+    private void observerPoseDetectorVM() {
+
+        DecimalFormat decimalFormat = new DecimalFormat("###.##");
+
+        poseDetectorViewModel.getExerciseRepetitions().observe(this, value -> {
+            TextView exerciseRepetitionsTextView = findViewById(R.id.cameraRepetitionsCounterTextView);
+            exerciseRepetitionsTextView.setText(value + " reps");
+        });
+
+        poseDetectorViewModel.getExerciseCorrectness().observe(this, value -> {
+            TextView exerciseCorrectnessTextView = findViewById(R.id.cameraCorrectnessCardText);
+            exerciseCorrectnessTextView.setText(decimalFormat.format(value) + "%");
+        });
+
+        poseDetectorViewModel.getExerciseProgress().observe(this, value -> {
+            TextView exerciseProgressTextView = findViewById(R.id.cameraProgressCardText);
+            exerciseProgressTextView.setText(decimalFormat.format(value) + "%");
+        });
 
     }
 
@@ -147,13 +160,16 @@ public class CameraActivity extends AppCompatActivity {
                 ExerciseAnalysisResponse exerciseAnalysisResponseBody = exerciseAnalysisResponse.body();
 
                 if (exerciseAnalysisResponseBody == null) {
-                    Log.d("SmartMove", "NULL RESPONSE BODY");
+                    Log.e("SmartMove", "Null response body in Update Pose View Model Callback - CameraActivity.class");
                     return;
                 }
 
+                double correctnessPercentage = exerciseAnalysisResponseBody.getCorrectness() * 100;
+                double progressPercentage = exerciseAnalysisResponseBody.getProgress() * 100;
+
                 poseDetectorViewModel.getCurrentPose().postValue(poseDetectorHandler.getCurrentPose());
-                poseDetectorViewModel.getExerciseCorrectness().postValue(exerciseAnalysisResponseBody.getCorrectness());
-                poseDetectorViewModel.getExerciseProgress().postValue(exerciseAnalysisResponseBody.getProgress());
+                poseDetectorViewModel.getExerciseCorrectness().postValue(correctnessPercentage);
+                poseDetectorViewModel.getExerciseProgress().postValue(progressPercentage);
 
                 if (exerciseAnalysisResponseBody.isFinishedRepetition()) {
                     int repetitions = Optional.ofNullable(poseDetectorViewModel.getExerciseRepetitions().getValue()).orElse(0);
@@ -174,7 +190,7 @@ public class CameraActivity extends AppCompatActivity {
                 ExerciseAnalysisResponse exerciseAnalysisResponseBody = exerciseAnalysisResponse.body();
 
                 if (exerciseAnalysisResponseBody == null) {
-                    Log.d("SmartMove", "NULL RESPONSE BODY");
+                    Log.e("SmartMove", "Null response body in Current Exercise Singleton Callback - CameraActivity.class");
                     return;
                 }
 
@@ -207,20 +223,24 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void storeExerciseReport(ExerciseReportEntity exerciseReportEntity) {
+        if (exerciseReportEntity == null) return;
         AsyncTask.execute(() -> exerciseReportDao.insertReport(exerciseReportEntity));
     }
 
     private void onSaveButtonClick() {
 
+        CurrentExerciseHandler currentExerciseHandler = CurrentExerciseHandler.getInstance();
+        ExerciseReportEntity exerciseReport = currentExerciseHandler.toExerciseReportEntity();
+
+        // If the exercise was initiated
+        if (currentExerciseHandler.getExerciseId() != -1) {
+            storeExerciseReport(exerciseReport);
+        }
+
         Intent myIntent = new Intent(this, ExerciseReportActivity.class);
         this.startActivity(myIntent);
 
         finish();
-
-        CurrentExerciseHandler currentExerciseHandler = CurrentExerciseHandler.getInstance();
-        ExerciseReportEntity exerciseReport = currentExerciseHandler.toExerciseReportEntity();
-
-        storeExerciseReport(exerciseReport);
 
     }
 

@@ -84,8 +84,6 @@ public class ApiUtils {
 
     public static Response<ExerciseAnalysisResponse> sendExerciseAnalysis(ExerciseDataRequest exerciseDataRequest) {
 
-        Log.d("SmartMove", "Debug 1");
-
         Call<ExerciseAnalysisResponse> call = ApiUtils.submitExerciseDataForAnalysis(exerciseDataRequest);
 
         try {

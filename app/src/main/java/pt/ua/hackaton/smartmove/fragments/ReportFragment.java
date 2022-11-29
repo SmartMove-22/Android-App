@@ -4,96 +4,46 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import pt.ua.hackaton.smartmove.R;
-import pt.ua.hackaton.smartmove.data.AssignedExercise;
-import pt.ua.hackaton.smartmove.data.Category;
-import pt.ua.hackaton.smartmove.utils.ExerciseCategory;
+import pt.ua.hackaton.smartmove.recyclers.utils.DayOfWeekRecyclerItem;
 import pt.ua.hackaton.smartmove.viewmodels.ReportsViewModel;
 import pt.ua.hackaton.smartmove.recyclers.DaysOfWeekRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ReportFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
 public class ReportFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private ReportsViewModel reportsViewModel;
     private WorkoutPlanRecyclerViewAdapter workoutPlanRecyclerViewAdapter;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ReportFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ReportFragment newInstance(String param1, String param2) {
-        ReportFragment fragment = new ReportFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public ReportFragment() {
-        // Required empty public constructor
-    }
+    public ReportFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
-        // reportsViewModel = new ViewModelProvider(this).get(ReportsViewModel.class);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-        /*
-        reportsViewModel.getTimestamp().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                reportsViewModel.fetchReport();
-            }
-        });
-
-        reportsViewModel.getReport().observe(this, new Observer<Report>() {
-            @Override
-            public void onChanged(Report report) {
-                if (workoutPlanRecyclerViewAdapter != null)
-                    workoutPlanRecyclerViewAdapter.setData(report.getExercises());
-            }
-        });
-         */
+        reportsViewModel = new ViewModelProvider(this).get(ReportsViewModel.class);
 
     }
 
@@ -109,43 +59,116 @@ public class ReportFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        List<LocalDateTime> range7Days = new ArrayList<>();
+        setupDaysRecyclerView(view, getLastDays());
+        updateViewWithAggregations(view, 0);
 
-        List<AssignedExercise> exercisesNames = new ArrayList<>();
-        exercisesNames.add(new AssignedExercise(1, null, "Chest Muscles", new Category(1, ExerciseCategory.SQUAT, ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
-        exercisesNames.add(new AssignedExercise(1, null, "Abdominal Muscles", new Category(1, ExerciseCategory.SQUAT, ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
-        exercisesNames.add(new AssignedExercise(1, null, "Push Ups", new Category(1, ExerciseCategory.SQUAT, ""), 1,1,300, null, false, 0, 0, 0, 0, 0));
-
-        for (int i = -7; i < 7; i++) {
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DATE, i);
-
-            range7Days.add(LocalDateTime.ofInstant(calendar.getTime().toInstant(), ZoneId.systemDefault()));
-
-        }
-
-        setupDaysRecyclerView(view, range7Days);
+        TextView exerciseReportMainCardSubtitle = view.findViewById(R.id.exerciseReportMainCardSubtitle);
+        exerciseReportMainCardSubtitle.setText("Check your progress on " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM")));
 
     }
 
-    private void setupDaysRecyclerView(View view, List<LocalDateTime> data) {
+    private void setupDaysRecyclerView(View view, List<LocalDateTime> dateData) {
+
+        List<DayOfWeekRecyclerItem> data = dateData.stream()
+                .map(localDateTime -> new DayOfWeekRecyclerItem(
+                        localDateTime, false,
+                        ResourcesCompat.getColor(getResources(), R.color.yellow_secondary, null),
+                        ResourcesCompat.getColor(getResources(), R.color.white, null)))
+                .collect(Collectors.toList());
 
         RecyclerView recyclerView = view.findViewById(R.id.reportDaysOfWeekRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         DaysOfWeekRecyclerViewAdapter adapter = new DaysOfWeekRecyclerViewAdapter(getContext(), data);
 
-        /*
+        TextView exerciseReportMainCardSubtitle = view.findViewById(R.id.exerciseReportMainCardSubtitle);
+
         adapter.setClickListener((view1, position) -> {
-            //Toast.makeText(getContext(), "Clicked On item " + position, Toast.LENGTH_SHORT).show();
-            reportsViewModel.setTimestamp(data.get(position).toString());
+
+            DayOfWeekRecyclerItem dayOfWeekRecyclerCurrentItem = data.get(position);
+
+            exerciseReportMainCardSubtitle.setText("Check your progress on " + dayOfWeekRecyclerCurrentItem.getLocalDateTime().format(DateTimeFormatter.ofPattern("dd MMM")));
+
+            for (int dataItemIdx = 0; dataItemIdx < data.size(); dataItemIdx++) {
+                data.get(dataItemIdx).setActive(false);
+                adapter.notifyItemChanged(dataItemIdx);
+            }
+
+            dayOfWeekRecyclerCurrentItem.setActive(true);
+            adapter.notifyItemChanged(position);
+
+            updateViewWithAggregations(view, 6-position);
+
         });
 
-         */
-
         recyclerView.setAdapter(adapter);
-        // reportsViewModel.setTimestamp(data.get(7).toString());
+
+    }
+
+    private void updateViewWithAggregations(View view, int transformedPosition) {
+
+        DecimalFormat decimalFormat = new DecimalFormat("##.##");
+
+        reportsViewModel.getDailyExerciseTimeSum(transformedPosition).observe(getViewLifecycleOwner(), exerciseTimeSum -> {
+
+            TextView dailyReportExerciseTime = view.findViewById(R.id.dailyReportExerciseTimePlaceholder);
+
+            if (exerciseTimeSum == null) {
+                dailyReportExerciseTime.setText("N/A");
+            } else {
+                dailyReportExerciseTime.setText(decimalFormat.format(exerciseTimeSum));
+            }
+
+        });
+
+        reportsViewModel.getDailyCaloriesSum(transformedPosition).observe(getViewLifecycleOwner(), caloriesSum -> {
+
+            TextView dailyReportCalories = view.findViewById(R.id.dailyReportCaloriesPlaceholder);
+
+            if (caloriesSum == null) {
+                dailyReportCalories.setText("N/A");
+            } else {
+                dailyReportCalories.setText(decimalFormat.format(caloriesSum));
+            }
+
+        });
+
+        reportsViewModel.getDailyCorrectnessAvg(transformedPosition).observe(getViewLifecycleOwner(), correctnessAvg -> {
+
+            TextView dailyCorrectnessAvg = view.findViewById(R.id.dailyReportCorrectnessPlaceholder);
+            TextView dailyReportImprovement = view.findViewById(R.id.dailyReportImprovementPlaceholder);
+
+            if (correctnessAvg == null) {
+                dailyCorrectnessAvg.setText("N/A");
+                dailyReportImprovement.setText("N/A");
+            } else {
+
+                reportsViewModel.getDailyCorrectnessAvg(transformedPosition-1).observe(getViewLifecycleOwner(), correctnessAvgBefore ->
+                    dailyReportImprovement.setText(decimalFormat.format((correctnessAvg-correctnessAvgBefore)*100))
+                );
+
+                dailyCorrectnessAvg.setText(decimalFormat.format(correctnessAvg*100));
+
+            }
+
+        });
+
+    }
+
+    private List<LocalDateTime> getLastDays() {
+
+        List<LocalDateTime> daysRange = new ArrayList<>();
+
+        for (int i = 6; i > 0; i--) {
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DATE, -i);
+            daysRange.add(LocalDateTime.ofInstant(calendar.getTime().toInstant(), ZoneId.systemDefault()));
+
+        }
+
+        return daysRange;
+
     }
 
 }

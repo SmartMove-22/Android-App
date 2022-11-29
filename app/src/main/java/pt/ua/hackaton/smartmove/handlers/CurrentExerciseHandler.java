@@ -35,7 +35,11 @@ public class CurrentExerciseHandler {
         exerciseRepetitions += 1;
     }
 
-    public Double calculateCaloriesBurn() {
+    public double calculateCaloriesBurn() {
+
+        if (exerciseCategory == null) {
+            return 0d;
+        }
 
         switch (exerciseCategory) {
             case SQUAT:
@@ -50,20 +54,31 @@ public class CurrentExerciseHandler {
 
     }
 
-    public Double calculatePacing() {
+    public double calculatePacing() {
+        if (getExerciseTimeInSeconds() == 0)
+            return 0d;
         return (double) exerciseRepetitions/getExerciseTimeInSeconds();
     }
 
-    public Double getAverageCorrectness() {
+    public double getAverageCorrectness() {
+
+        if (exerciseCorrectnessMeasures.size() <= 0)
+            return 0d;
+
         return exerciseCorrectnessMeasures
                 .stream()
-                .reduce(0d, Double::sum);
+                .reduce(0d, Double::sum)/exerciseCorrectnessMeasures.size();
     }
 
-    public Double getAverageHeartRate() {
-        return exerciseCorrectnessMeasures
+    public double getAverageHeartRate() {
+
+        if (exerciseCorrectnessMeasures.size() <= 0)
+            return 0d;
+
+        return exerciseHeartRateMeasures
                 .stream()
-                .reduce(0d, Double::sum);
+                .reduce(0d, Double::sum)/exerciseHeartRateMeasures.size();
+
     }
 
     public void startExerciseTimer() {
@@ -71,8 +86,13 @@ public class CurrentExerciseHandler {
     }
 
     public long getExerciseTimeInSeconds() {
+
         final int initializationTime = 5;
+
+        if (this.exerciseStartTimestamp == 0)
+            return 0;
         return Math.round((System.currentTimeMillis() - this.exerciseStartTimestamp)/1000d) - initializationTime;
+
     }
 
     public ExerciseReportEntity toExerciseReportEntity() {
