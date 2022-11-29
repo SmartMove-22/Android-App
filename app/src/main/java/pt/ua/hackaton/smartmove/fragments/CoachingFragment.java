@@ -19,6 +19,8 @@ import java.util.List;
 import pt.ua.hackaton.smartmove.CameraActivity;
 import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.AssignedExercise;
+import pt.ua.hackaton.smartmove.data.Exercise;
+import pt.ua.hackaton.smartmove.data.mocks.ExercisesMocks;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
 
 /**
@@ -79,18 +81,11 @@ public class CoachingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
-
-        List<AssignedExercise> exercisesNames = new ArrayList<>();
-        exercisesNames.add(new AssignedExercise(1, null, "Chest Muscles", null, 1,1,300, null, false, 0, 0, 0, 0, 0));
-        exercisesNames.add(new AssignedExercise(1, null, "Abdominal Muscles", null, 1,1,300, null, false, 0, 0, 0, 0, 0));
-        exercisesNames.add(new AssignedExercise(1, null, "Push Ups", null, 1,1,300, null, false, 0, 0, 0, 0, 0));
-
-
-        setupWorkoutPlanRecyclerView(view, exercisesNames);
+        setupWorkoutPlanRecyclerView(view, ExercisesMocks.getExercisesList());
 
     }
 
-    private void setupWorkoutPlanRecyclerView(View view, List<AssignedExercise> data) {
+    private void setupWorkoutPlanRecyclerView(View view, List<Exercise> data) {
 
         RecyclerView recyclerView = view.findViewById(R.id.coachingFragWorkoutPlanRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -100,6 +95,11 @@ public class CoachingFragment extends Fragment {
             public void onItemClick(View view, int position) {
                 if (getActivity() != null) {
                     Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+
+                    myIntent.putExtra("exercise_id", data.get(position).getId());
+                    myIntent.putExtra("exercise_name", data.get(position).getName());
+                    myIntent.putExtra("exercise_category_name", data.get(position).getCategory().getCategory().name());
+
                     getActivity().startActivity(myIntent);
                 }
             }

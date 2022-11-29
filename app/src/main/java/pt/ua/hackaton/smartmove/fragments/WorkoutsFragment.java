@@ -23,6 +23,7 @@ import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.data.mocks.ExercisesMocks;
 import pt.ua.hackaton.smartmove.utils.SharedPreferencesHandler;
+import pt.ua.hackaton.smartmove.viewmodels.ReportsViewModel;
 import pt.ua.hackaton.smartmove.viewmodels.WorkoutsViewModel;
 import pt.ua.hackaton.smartmove.recyclers.SuggestedExercisesRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
@@ -32,6 +33,7 @@ public class WorkoutsFragment extends Fragment {
     private WorkoutPlanRecyclerViewAdapter workoutPlanRecyclerAdapter;
 
     private WorkoutsViewModel workoutsViewModel;
+    private ReportsViewModel reportsViewModel;
 
     public WorkoutsFragment() { }
 
@@ -39,6 +41,7 @@ public class WorkoutsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         workoutsViewModel = new ViewModelProvider(this).get(WorkoutsViewModel.class);
+        reportsViewModel = new ViewModelProvider(this).get(ReportsViewModel.class);
     }
 
     @Override
@@ -64,6 +67,7 @@ public class WorkoutsFragment extends Fragment {
         TextView exerciseTimePlaceholder = view.findViewById(R.id.userFragmentBMIPlaceholder);
         TextView caloriesBurnPlaceholder = view.findViewById(R.id.userFragmentWeightPlaceholder);
         TextView mainDashboardCaloriesLeft = view.findViewById(R.id.mainDashboardCaloriesLeftPlaceholder);
+        TextView todayImprovement = view.findViewById(R.id.todayImprovementPlaceholder);
         ProgressBar caloriesGoalProgressBar = view.findViewById(R.id.progressBarCaloriesLeft);
 
         int caloriesGoal = sharedPreferencesHandler.getPreferenceInteger(getString(R.string.calories_goal_preference), 200);
@@ -85,6 +89,16 @@ public class WorkoutsFragment extends Fragment {
             caloriesBurnPlaceholder.setText(decimalFormat.format(caloriesBurn != null ? caloriesBurn : 0));
 
         });
+
+        reportsViewModel.getDailyCorrectnessAvg(6).observe(getViewLifecycleOwner(), correctnessAvgBefore ->
+                reportsViewModel.getDailyCorrectnessAvg(5).observe(getViewLifecycleOwner(), correctnessAvgNow -> {
+                    if (correctnessAvgBefore != null && correctnessAvgNow != null) {
+                        todayImprovement.setText("Today improvement was " + decimalFormat.format((correctnessAvgNow-correctnessAvgBefore)*100));
+                    } else {
+                        todayImprovement.setText("No improvement today...");
+                    }
+                })
+        );
 
     }
 

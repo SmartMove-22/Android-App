@@ -108,14 +108,12 @@ public class UserProfileFragment extends Fragment {
 
         });
 
-        userViewModel.getUserWeight(username).observe(getViewLifecycleOwner(), userHeight -> {
+        userViewModel.getUserHeight(username).observe(getViewLifecycleOwner(), userHeight -> {
 
-            DecimalFormat decimalFormat = new DecimalFormat("##.##");
-
-            if (userHeight == null) userHeight = 0d;
+            if (userHeight == null) userHeight = 0;
 
             TextView userFragmentHeight = view.findViewById(R.id.userFragmentHeightPlaceholder);
-            userFragmentHeight.setText(decimalFormat.format(userHeight));
+            userFragmentHeight.setText(String.valueOf(userHeight));
 
         });
 

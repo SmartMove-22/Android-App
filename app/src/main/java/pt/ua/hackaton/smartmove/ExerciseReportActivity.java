@@ -67,7 +67,7 @@ public class ExerciseReportActivity extends AppCompatActivity {
 
         String pacingStr = decimalFormat.format(currentExerciseHandler.calculatePacing());
         String caloriesStr = decimalFormat.format(currentExerciseHandler.calculateCaloriesBurn());
-        String correctnessStr = decimalFormat.format(currentExerciseHandler.getAverageCorrectness());
+        String correctnessStr = decimalFormat.format(currentExerciseHandler.getAverageCorrectness()*100);
 
         exerciseReportExerciseName.setText(exercise.map(Exercise::getName).orElse("Unknown Exercise"));
         exerciseReportCalories.setText(caloriesStr);
@@ -125,9 +125,10 @@ public class ExerciseReportActivity extends AppCompatActivity {
         CurrentExerciseHandler currentExerciseHandler = CurrentExerciseHandler.getInstance();
         int correctnessMeasures = currentExerciseHandler.getExerciseCorrectnessMeasures().size();
 
+
         for (int correctnessMeasureIdx = 1; correctnessMeasureIdx < correctnessMeasures; correctnessMeasureIdx++) {
             chartData.add(new BarEntry((float) correctnessMeasureIdx,
-                    currentExerciseHandler.getExerciseCorrectnessMeasures().get(correctnessMeasureIdx-1).floatValue()));
+                    currentExerciseHandler.getExerciseCorrectnessMeasures().get(correctnessMeasureIdx-1).floatValue()*100));
         }
 
     }

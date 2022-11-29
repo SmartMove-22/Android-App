@@ -43,7 +43,6 @@
         android:id="@+id/cardView"
         android:layout_width="345dp"
         android:layout_height="250dp"
-        android:layout_marginTop="6dp"
         android:elevation="10dp"
         app:cardCornerRadius="30dp"
         app:cardUseCompatPadding="true"
@@ -310,5 +309,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/coachTraineeOverviewExercisesRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,17 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="381dp"
-        android:layout_height="235dp"
+        android:layout_width="350dp"
+        android:layout_height="170dp"
         android:layout_marginTop="4dp"
         android:elevation="10dp"
         app:cardCornerRadius="30dp"
         app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -20,44 +21,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/performedExerciseImageCardView"
-                android:layout_width="132dp"
-                android:layout_height="132dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:elevation="10dp"
-                app:cardCornerRadius="30dp"
-                app:cardUseCompatPadding="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
-
-                <ImageView
-                    android:id="@+id/performedExerciseImageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/lift_weight" />
-
-            </androidx.cardview.widget.CardView>
-
             <TextView
                 android:id="@+id/performedExerciseNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="24dp"
                 android:fontFamily="@font/poppins"
                 android:text="Chest Muscles"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/performedExerciseImageCardView"
-                app:layout_constraintTop_toTopOf="@+id/performedExerciseImageCardView" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/performedExerciseCompletedTextView"
@@ -69,16 +44,30 @@
                 android:textColor="#4CAF50"
                 android:textSize="8sp"
                 android:textStyle="bold"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="@+id/performedExerciseNameTextView"
                 app:layout_constraintTop_toBottomOf="@+id/performedExerciseNameTextView" />
+
+            <TextView
+                android:id="@+id/performedExerciseDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/poppins"
+                android:text="Completed"
+                android:textColor="#000000"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/performedExerciseNameTextView"
+                app:layout_constraintTop_toBottomOf="@+id/performedExerciseCompletedTextView" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
                 android:layout_width="100dp"
                 android:layout_height="38dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintStart_toEndOf="@+id/performedExerciseImageCardView"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="@+id/performedExerciseNameTextView"
                 app:layout_constraintTop_toBottomOf="@+id/performedExerciseCompletedTextView">
 
                 <ImageView
@@ -98,7 +87,7 @@
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="-2dp"
                     android:fontFamily="@font/poppins"
-                    android:text="Performance"
+                    android:text="Exercise Time"
                     android:textSize="8sp"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
                     app:layout_constraintTop_toBottomOf="@+id/performedExerciseTimeTextView" />
@@ -119,6 +108,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
                 android:layout_width="100dp"
                 android:layout_height="38dp"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
@@ -164,10 +154,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="100dp"
                 android:layout_height="38dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintStart_toEndOf="@+id/performedExerciseImageCardView"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout4">
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -205,24 +193,6 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView5"
                     app:layout_constraintTop_toTopOf="@+id/imageView5" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <RatingBar
-                android:id="@+id/ratingBar2"
-                android:layout_width="239dp"
-                android:layout_height="51dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="60dp"
-                android:numStars="5"
-                android:progress="1"
-                android:progressTint="@color/yellow"
-                android:rating="1.5"
-                android:scaleX=".5"
-                android:scaleY=".5"
-                android:secondaryProgressTint="@color/yellow"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/performedExerciseImageCardView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

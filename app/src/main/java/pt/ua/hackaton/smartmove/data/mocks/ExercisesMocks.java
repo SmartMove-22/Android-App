@@ -15,11 +15,15 @@ public class ExercisesMocks {
         List<Exercise> exercises = new ArrayList<>();
 
         exercises.add(new Exercise(1, null, "Legs Muscles", new Category(1, ExerciseCategory.SQUAT, ""), 1,1,300, R.drawable.lift_weight));
-        exercises.add(new Exercise(1, null, "Abdominal Muscles", new Category(1, ExerciseCategory.SQUAT, ""), 1,1,300, R.drawable.lift_weight));
-        exercises.add(new Exercise(1, null, "Push Ups", new Category(1, ExerciseCategory.SQUAT, ""), 1,1,300, R.drawable.lift_weight));
+        exercises.add(new Exercise(2, null, "Abdominal Muscles", new Category(1, ExerciseCategory.SQUAT, ""), 1,1,300, R.drawable.lift_weight));
+        exercises.add(new Exercise(3, null, "Push Ups", new Category(1, ExerciseCategory.SQUAT, ""), 1,1,300, R.drawable.lift_weight));
 
         return exercises;
 
+    }
+
+    public static Exercise getExerciseById(int exerciseId) {
+        return getExercisesList().get(exerciseId);
     }
 
 }

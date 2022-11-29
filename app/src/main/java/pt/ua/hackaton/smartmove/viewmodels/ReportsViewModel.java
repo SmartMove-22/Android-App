@@ -5,9 +5,14 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import java.util.Collections;
+import java.util.List;
 
 import pt.ua.hackaton.smartmove.data.database.AppDatabase;
 import pt.ua.hackaton.smartmove.data.database.dao.ExerciseReportDao;
+import pt.ua.hackaton.smartmove.data.database.entities.ExerciseReportEntity;
 
 public class ReportsViewModel extends AndroidViewModel {
 
@@ -39,6 +44,14 @@ public class ReportsViewModel extends AndroidViewModel {
 
     public LiveData<Long> getTodayExerciseTimeSum() {
         return todayExerciseTimeSum;
+    }
+
+
+    public LiveData<List<ExerciseReportEntity>> getDailyExerciseReports(int offset) {
+        if (offset <= 0) {
+            return new MutableLiveData<>(Collections.emptyList());
+        }
+        return exerciseReportDao.getDailyReportsData(offset, offset-1);
     }
 
     public LiveData<Long> getDailyExerciseTimeSum(int offset) {

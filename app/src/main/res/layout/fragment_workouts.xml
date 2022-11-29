@@ -59,7 +59,7 @@
                     android:id="@+id/mainPanelDistanceLabel2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="4dp"
                     android:text="kcal"
                     android:textAlignment="viewStart"
@@ -68,6 +68,20 @@
                     android:typeface="normal"
                     card_view:layout_constraintStart_toEndOf="@+id/userFragmentWeightPlaceholder"
                     card_view:layout_constraintTop_toBottomOf="@+id/mainPanelDistanceLabel" />
+
+                <TextView
+                    android:id="@+id/mainPanelTimeUnitLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:text="seconds"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
+                    android:textSize="10sp"
+                    android:typeface="normal"
+                    app:layout_constraintStart_toEndOf="@+id/userFragmentBMIPlaceholder"
+                    app:layout_constraintTop_toBottomOf="@+id/mainPanelStepsLabel" />
 
                 <TextView
                     android:id="@+id/userFragmentWeightPlaceholder"
@@ -88,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="2dp"
-                    android:text="25 minutes"
+                    android:text="25"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -169,11 +183,11 @@
                     card_view:layout_constraintTop_toBottomOf="@+id/horizontalSeparator" />
 
                 <TextView
-                    android:id="@+id/walkingStatusPlaceholder"
+                    android:id="@+id/todayImprovementPlaceholder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:text="Only more X steps left!"
+                    android:text="Only more 500 steps left!"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textStyle="bold"
                     card_view:layout_constraintBottom_toBottomOf="parent"

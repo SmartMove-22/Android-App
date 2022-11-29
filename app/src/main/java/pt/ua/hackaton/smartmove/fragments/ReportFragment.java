@@ -1,5 +1,6 @@
 package pt.ua.hackaton.smartmove.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import pt.ua.hackaton.smartmove.CameraActivity;
 import pt.ua.hackaton.smartmove.R;
+import pt.ua.hackaton.smartmove.data.AssignedExercise;
+import pt.ua.hackaton.smartmove.data.database.entities.ExerciseReportEntity;
+import pt.ua.hackaton.smartmove.recyclers.ExerciseReportsViewAdapter;
+import pt.ua.hackaton.smartmove.recyclers.TraineesOverviewRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.utils.DayOfWeekRecyclerItem;
 import pt.ua.hackaton.smartmove.viewmodels.ReportsViewModel;
 import pt.ua.hackaton.smartmove.recyclers.DaysOfWeekRecyclerViewAdapter;
@@ -60,10 +66,36 @@ public class ReportFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setupDaysRecyclerView(view, getLastDays());
+
+        // setupTraineeExercisesOverviewRecyclerView(view, exercisesNames);
         updateViewWithAggregations(view, 0);
+
+        reportsViewModel.getDailyExerciseReports(1).observe(getViewLifecycleOwner(), exerciseReportEntities -> {
+            setupTraineeExercisesOverviewRecyclerView(view, exerciseReportEntities);
+        });
+
+
+        // setupTraineeExercisesOverviewRecyclerView(view, 0);
 
         TextView exerciseReportMainCardSubtitle = view.findViewById(R.id.exerciseReportMainCardSubtitle);
         exerciseReportMainCardSubtitle.setText("Check your progress on " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM")));
+
+    }
+
+    private void setupTraineeExercisesOverviewRecyclerView(View view, List<ExerciseReportEntity> data) {
+
+        RecyclerView recyclerView = view.findViewById(R.id.coachTraineeOverviewExercisesRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        ExerciseReportsViewAdapter adapter = new ExerciseReportsViewAdapter(getContext(), data);
+        adapter.setClickListener((view1, position) -> {
+            if (getActivity() != null) {
+                Intent myIntent = new Intent(getActivity(), CameraActivity.class);
+                getActivity().startActivity(myIntent);
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
 
     }
 
@@ -96,6 +128,10 @@ public class ReportFragment extends Fragment {
 
             dayOfWeekRecyclerCurrentItem.setActive(true);
             adapter.notifyItemChanged(position);
+
+            reportsViewModel.getDailyExerciseReports(6-position).observe(getViewLifecycleOwner(), exerciseReportEntities -> {
+                // setupTraineeExercisesOverviewRecyclerView(view, exerciseReportEntities);
+            });
 
             updateViewWithAggregations(view, 6-position);
 
