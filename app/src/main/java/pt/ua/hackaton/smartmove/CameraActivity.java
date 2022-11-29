@@ -72,6 +72,7 @@ public class CameraActivity extends AppCompatActivity {
         observerPoseDetectorVM();
 
         findViewById(R.id.cameraSaveExerciseBtn).setOnClickListener(view -> onSaveButtonClick());
+        findViewById(R.id.cameraHideShowDotsImageView).setOnClickListener(view -> onLandmarksStatusChangedClick());
 
     }
 
@@ -241,6 +242,13 @@ public class CameraActivity extends AppCompatActivity {
         this.startActivity(myIntent);
 
         finish();
+
+    }
+
+    private void onLandmarksStatusChangedClick() {
+
+        PoseDetectorHandler poseDetectorHandler = PoseDetectorHandler.getInstance();
+        poseDetectorHandler.setShowLandmarks(!poseDetectorHandler.isShowingLandmarks());
 
     }
 

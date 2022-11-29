@@ -30,14 +30,22 @@ public interface ExerciseReportDao {
     @Query("SELECT avg(correctness) FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now', 'start of day', '-' || :firstDay || ' day') AND strftime('%s', 'now', 'start of day', '-' || :dayBefore || ' day');")
     LiveData<Double> getDailyAverageCorrectness(int firstDay, int dayBefore);
 
-
-    @Query("SELECT sum(exercise_duration_seconds) FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now', 'start of day') AND  strftime('%s', 'now');")
+    @Query("SELECT sum(exercise_duration_seconds) FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now', 'start of day') AND strftime('%s', 'now');")
     LiveData<Long> getTodayExerciseTime();
 
-    @Query("SELECT sum(calories_burn) FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now', 'start of day') AND  strftime('%s', 'now');")
+    @Query("SELECT sum(calories_burn) FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now', 'start of day') AND strftime('%s', 'now');")
     LiveData<Double> getTodayCaloriesBurn();
 
-    @Query("SELECT avg(correctness) FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now', 'start of day') AND  strftime('%s', 'now');")
+    @Query("SELECT avg(correctness) FROM exercise_report WHERE timestamp BETWEEN strftime('%s', 'now', 'start of day') AND strftime('%s', 'now');")
     LiveData<Double> getTodayCorrectnessAverage();
+
+    @Query("SELECT avg(correctness) FROM exercise_report;")
+    LiveData<Double> getTotalCorrectnessAverage();
+
+    @Query("SELECT sum(calories_burn) FROM exercise_report;")
+    LiveData<Double> getTotalCaloriesBurn();
+
+    @Query("SELECT sum(exercise_duration_seconds) FROM exercise_report;")
+    LiveData<Double> getTotalExerciseTime();
 
 }

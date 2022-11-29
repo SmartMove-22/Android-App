@@ -74,18 +74,20 @@ public class CameraUtils {
             PoseDetector poseDetector = PoseDetection.getClient(options);
 
             poseDetector.process(image)
-                    .addOnSuccessListener(
-                            pose -> {
+                    .addOnSuccessListener(pose -> {
 
-                                PoseDetectorHandler poseDetectorHandler = PoseDetectorHandler.getInstance();
-                                poseDetectorHandler.setCurrentPose(pose);
-                                // poseDetectorHandler.setViewModel(poseDetectorViewModel);
+                        PoseDetectorHandler poseDetectorHandler = PoseDetectorHandler.getInstance();
+                        poseDetectorHandler.setCurrentPose(pose);
+                        // poseDetectorHandler.setViewModel(poseDetectorViewModel);
 
-                                // Mark points in image
-                                pose.getAllPoseLandmarks().forEach(poseLandmark -> BitmapUtils.markPointBlue(rotatedMutableBitmap, poseLandmark));
-                                cameraFrame.setImageBitmap(rotatedMutableBitmap);
+                        // Mark points in image
+                        if (poseDetectorHandler.isShowingLandmarks()) {
+                            pose.getAllPoseLandmarks().forEach(poseLandmark -> BitmapUtils.markPointBlue(rotatedMutableBitmap, poseLandmark));
+                        }
 
-                            })
+                        cameraFrame.setImageBitmap(rotatedMutableBitmap);
+
+                    })
                     .addOnFailureListener(e -> Log.d("SmartMove_Image_Analysis", "Failed to recognize points")).addOnCompleteListener(runnable -> imageProxy.close());
 
         });

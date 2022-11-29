@@ -10,6 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import pt.ua.hackaton.smartmove.fragments.CoachTraineesFragment;
 import pt.ua.hackaton.smartmove.fragments.CoachingFragment;
 import pt.ua.hackaton.smartmove.fragments.ReportFragment;
+import pt.ua.hackaton.smartmove.fragments.UserProfileFragment;
 import pt.ua.hackaton.smartmove.fragments.WorkoutsFragment;
 import pt.ua.hackaton.smartmove.utils.SharedPreferencesHandler;
 import pt.ua.hackaton.smartmove.utils.UserType;
@@ -56,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
                             .replace(R.id.fragmentContainerView, ReportFragment.class, null)
                             .setReorderingAllowed(true)
                             .addToBackStack("report_fragment")
+                            .commit();
+                    return true;
+                } else if (item.getItemId() == R.id.profile_menu_item) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, UserProfileFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("user_profile_fragment")
                             .commit();
                     return true;
                 }

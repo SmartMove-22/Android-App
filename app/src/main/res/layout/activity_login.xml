@@ -104,7 +104,7 @@
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
-        android:text="Hugo"
+        android:text="Hugo1307"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +121,7 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        android:text="hugo"
+        android:text="boatarde"
         app:layout_constraintBottom_toTopOf="@+id/loginBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

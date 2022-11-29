@@ -2,10 +2,10 @@ package pt.ua.hackaton.smartmove.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +22,7 @@ import pt.ua.hackaton.smartmove.CameraActivity;
 import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.data.mocks.ExercisesMocks;
+import pt.ua.hackaton.smartmove.utils.SharedPreferencesHandler;
 import pt.ua.hackaton.smartmove.viewmodels.WorkoutsViewModel;
 import pt.ua.hackaton.smartmove.recyclers.SuggestedExercisesRecyclerViewAdapter;
 import pt.ua.hackaton.smartmove.recyclers.WorkoutPlanRecyclerViewAdapter;
@@ -58,17 +59,32 @@ public class WorkoutsFragment extends Fragment {
     private void setDashboardInformation(View view) {
 
         DecimalFormat decimalFormat = new DecimalFormat("##.##");
+        SharedPreferencesHandler sharedPreferencesHandler = new SharedPreferencesHandler(view.getContext());
 
-        TextView exerciseTimePlaceholder = view.findViewById(R.id.mainPanelStepsPlaceholder);
-        TextView caloriesBurnPlaceholder = view.findViewById(R.id.mainPanelCaloriesPlaceholder);
+        TextView exerciseTimePlaceholder = view.findViewById(R.id.userFragmentBMIPlaceholder);
+        TextView caloriesBurnPlaceholder = view.findViewById(R.id.userFragmentWeightPlaceholder);
+        TextView mainDashboardCaloriesLeft = view.findViewById(R.id.mainDashboardCaloriesLeftPlaceholder);
+        ProgressBar caloriesGoalProgressBar = view.findViewById(R.id.progressBarCaloriesLeft);
+
+        int caloriesGoal = sharedPreferencesHandler.getPreferenceInteger(getString(R.string.calories_goal_preference), 200);
 
         workoutsViewModel.getTodayExerciseSeconds().observe(getViewLifecycleOwner(),
                 exerciseTime -> exerciseTimePlaceholder.setText(decimalFormat.format(exerciseTime != null ? exerciseTime : 0))
         );
 
-        workoutsViewModel.getTodayExerciseCaloriesBurn().observe(getViewLifecycleOwner(),
-                caloriesBurn -> caloriesBurnPlaceholder.setText(decimalFormat.format(caloriesBurn != null ? caloriesBurn : 0))
-        );
+        workoutsViewModel.getTodayExerciseCaloriesBurn().observe(getViewLifecycleOwner(), caloriesBurn -> {
+
+            int caloriesLeft = 0;
+            if (caloriesBurn != null) {
+                caloriesLeft = caloriesGoal > caloriesBurn ? (int) Math.round(caloriesGoal-caloriesBurn) : 0;
+            }
+
+            mainDashboardCaloriesLeft.setText(String.valueOf(caloriesLeft));
+            caloriesGoalProgressBar.setMax(caloriesGoal);
+            caloriesGoalProgressBar.setProgress(caloriesBurn != null ? caloriesBurn.intValue() : 0);
+            caloriesBurnPlaceholder.setText(decimalFormat.format(caloriesBurn != null ? caloriesBurn : 0));
+
+        });
 
     }
 

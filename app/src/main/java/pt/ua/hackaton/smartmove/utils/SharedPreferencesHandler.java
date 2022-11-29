@@ -23,8 +23,20 @@ public class SharedPreferencesHandler {
 
     }
 
+    public void setPreferenceInt(String key, Integer value) {
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(key, value);
+        editor.apply();
+
+    }
+
     public String getPreferenceString(String key, String defaultValue) {
         return sharedPreferences.getString(key, defaultValue);
+    }
+
+    public Integer getPreferenceInteger(String key, Integer defaultValue) {
+        return sharedPreferences.getInt(key, defaultValue);
     }
 
 }

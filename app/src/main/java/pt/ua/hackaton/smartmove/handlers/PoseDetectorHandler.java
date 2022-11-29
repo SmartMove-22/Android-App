@@ -28,7 +28,7 @@ public class PoseDetectorHandler {
     private ScheduledExecutorService scheduler;
     private Long initialTime;
     private boolean firstHalf;
-    private List<Consumer<Response<ExerciseAnalysisResponse>>> callbacks;
+    private boolean showLandmarks;
 
     private PoseDetectorViewModel viewModel;
 
@@ -38,6 +38,7 @@ public class PoseDetectorHandler {
         this.scheduler = null;
         this.initialTime = null;
         this.firstHalf = true;
+        this.showLandmarks = false;
     }
 
     public synchronized Pose getCurrentPose() {
@@ -103,6 +104,14 @@ public class PoseDetectorHandler {
 
     private Long getElapsedTime() {
         return System.currentTimeMillis() - initialTime;
+    }
+
+    public boolean isShowingLandmarks() {
+        return showLandmarks;
+    }
+
+    public void setShowLandmarks(boolean showLandmarks) {
+        this.showLandmarks = showLandmarks;
     }
 
     private void clearHandler() {

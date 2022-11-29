@@ -53,7 +53,7 @@
                     android:textStyle="bold"
                     android:typeface="normal"
                     card_view:layout_constraintStart_toEndOf="@+id/distanceVerticalDiv"
-                    card_view:layout_constraintTop_toBottomOf="@+id/mainPanelStepsPlaceholder" />
+                    card_view:layout_constraintTop_toBottomOf="@+id/userFragmentBMIPlaceholder" />
 
                 <TextView
                     android:id="@+id/mainPanelDistanceLabel2"
@@ -66,11 +66,11 @@
                     android:textAllCaps="false"
                     android:textSize="10sp"
                     android:typeface="normal"
-                    card_view:layout_constraintStart_toEndOf="@+id/mainPanelCaloriesPlaceholder"
+                    card_view:layout_constraintStart_toEndOf="@+id/userFragmentWeightPlaceholder"
                     card_view:layout_constraintTop_toBottomOf="@+id/mainPanelDistanceLabel" />
 
                 <TextView
-                    android:id="@+id/mainPanelCaloriesPlaceholder"
+                    android:id="@+id/userFragmentWeightPlaceholder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -83,7 +83,7 @@
                     card_view:layout_constraintTop_toBottomOf="@+id/mainPanelDistanceLabel" />
 
                 <TextView
-                    android:id="@+id/mainPanelStepsPlaceholder"
+                    android:id="@+id/userFragmentBMIPlaceholder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -96,7 +96,7 @@
                     card_view:layout_constraintTop_toBottomOf="@+id/mainPanelStepsLabel" />
 
                 <ProgressBar
-                    android:id="@+id/progressBarStepsLeft"
+                    android:id="@+id/progressBarCaloriesLeft"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="115dp"
                     android:layout_height="115dp"
@@ -115,7 +115,7 @@
                     card_view:layout_constraintEnd_toEndOf="parent"
                     card_view:layout_constraintHorizontal_bias="0.0"
                     card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@+id/mainPanelCaloriesPlaceholder" />
+                    card_view:layout_constraintTop_toBottomOf="@+id/userFragmentWeightPlaceholder" />
 
                 <View
                     android:id="@+id/stepsVerticalDiv"
@@ -136,7 +136,7 @@
                     card_view:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/progressBarStepsLeftPlaceholder"
+                    android:id="@+id/mainDashboardCaloriesLeftPlaceholder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
@@ -144,9 +144,9 @@
                     android:textColor="@color/yellow"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    card_view:layout_constraintEnd_toEndOf="@+id/progressBarStepsLeft"
-                    card_view:layout_constraintStart_toStartOf="@+id/progressBarStepsLeft"
-                    card_view:layout_constraintTop_toTopOf="@+id/progressBarStepsLeft" />
+                    card_view:layout_constraintEnd_toEndOf="@+id/progressBarCaloriesLeft"
+                    card_view:layout_constraintStart_toStartOf="@+id/progressBarCaloriesLeft"
+                    card_view:layout_constraintTop_toTopOf="@+id/progressBarCaloriesLeft" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -154,9 +154,9 @@
                     android:layout_height="wrap_content"
                     android:text="Calories Left"
                     android:textSize="10sp"
-                    card_view:layout_constraintEnd_toEndOf="@+id/progressBarStepsLeft"
-                    card_view:layout_constraintStart_toStartOf="@+id/progressBarStepsLeft"
-                    card_view:layout_constraintTop_toBottomOf="@+id/progressBarStepsLeftPlaceholder" />
+                    card_view:layout_constraintEnd_toEndOf="@+id/progressBarCaloriesLeft"
+                    card_view:layout_constraintStart_toStartOf="@+id/progressBarCaloriesLeft"
+                    card_view:layout_constraintTop_toBottomOf="@+id/mainDashboardCaloriesLeftPlaceholder" />
 
                 <ImageView
                     android:id="@+id/walkingStatusImage"

@@ -5,6 +5,8 @@
     <!-- Shared Preferences -->
     <string name="preference_file_key">pt.ua.hackaton.smartmove.preferences</string>
     <string name="user_type_preference">user_type</string>
+    <string name="username_preference">username</string>
+    <string name="calories_goal_preference">calories_goal</string>
     <!-- End Of Shared Preferences -->
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
