@@ -121,7 +121,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/poppins"
-                    android:text="Potencial"
+                    android:text="Potential"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -338,7 +338,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
-                    android:text="Check your physical potencial"
+                    android:text="Adjust your calories goal"
                     android:textSize="9sp"
                     app:layout_constraintStart_toStartOf="@+id/userFragmentCaloriesGoalTitle"
                     app:layout_constraintTop_toBottomOf="@+id/userFragmentCaloriesGoalTitle" />

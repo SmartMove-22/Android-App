@@ -14,6 +14,8 @@ public class PoseDetectorViewModel extends AndroidViewModel {
     private final MutableLiveData<Integer> exerciseRepetitions;
     private final MutableLiveData<Double> exerciseCorrectness;
     private final MutableLiveData<Double> exerciseProgress;
+    private final MutableLiveData<String> exerciseTip;
+    private final MutableLiveData<Boolean> exerciseReadyToStart;
 
     public PoseDetectorViewModel(@NonNull Application application) {
 
@@ -23,6 +25,8 @@ public class PoseDetectorViewModel extends AndroidViewModel {
         this.exerciseRepetitions = new MutableLiveData<>();
         this.exerciseCorrectness = new MutableLiveData<>();
         this.exerciseProgress = new MutableLiveData<>();
+        this.exerciseTip = new MutableLiveData<>();
+        this.exerciseReadyToStart = new MutableLiveData<>();
 
     }
 
@@ -40,6 +44,14 @@ public class PoseDetectorViewModel extends AndroidViewModel {
 
     public MutableLiveData<Double> getExerciseProgress() {
         return exerciseProgress;
+    }
+
+    public MutableLiveData<String> getExerciseTip() {
+        return exerciseTip;
+    }
+
+    public MutableLiveData<Boolean> getExerciseReadyToStart() {
+        return exerciseReadyToStart;
     }
 
 }

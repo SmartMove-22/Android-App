@@ -3,21 +3,19 @@ package pt.ua.hackaton.smartmove.handlers;
 import android.util.Log;
 
 import com.google.mlkit.vision.pose.Pose;
+import com.google.mlkit.vision.pose.PoseLandmark;
 
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import pt.ua.hackaton.smartmove.api.service.ExerciseDataService;
 import pt.ua.hackaton.smartmove.data.LandmarkPoint;
 import pt.ua.hackaton.smartmove.data.requests.ExerciseDataRequest;
-import pt.ua.hackaton.smartmove.data.responses.ExerciseAnalysisResponse;
 import pt.ua.hackaton.smartmove.utils.ExerciseCategory;
 import pt.ua.hackaton.smartmove.viewmodels.PoseDetectorViewModel;
-import retrofit2.Response;
 
 public class PoseDetectorHandler {
 
@@ -29,6 +27,8 @@ public class PoseDetectorHandler {
     private Long initialTime;
     private boolean firstHalf;
     private boolean showLandmarks;
+    private int worstLandmark;
+    private boolean isReadyToStart;
 
     private PoseDetectorViewModel viewModel;
 
@@ -102,7 +102,7 @@ public class PoseDetectorHandler {
 
     }
 
-    private Long getElapsedTime() {
+    public Long getElapsedTime() {
         return System.currentTimeMillis() - initialTime;
     }
 
@@ -120,6 +120,24 @@ public class PoseDetectorHandler {
         this.scheduler = null;
         this.initialTime = null;
         this.firstHalf = false;
+        this.showLandmarks = false;
+        this.worstLandmark = 0;
+    }
+
+    public PoseLandmark getWorstLandmark() {
+        return currentPose.getPoseLandmark(worstLandmark);
+    }
+
+    public void setWorstLandmark(int worstLandmark) {
+        this.worstLandmark = worstLandmark;
+    }
+
+    public boolean isReadyToStart() {
+        return isReadyToStart;
+    }
+
+    public void setReadyToStart(boolean readyToStart) {
+        isReadyToStart = readyToStart;
     }
 
     public static PoseDetectorHandler getInstance() {

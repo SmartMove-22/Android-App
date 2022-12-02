@@ -51,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             userDao = AppDatabase.getInstance(getApplicationContext()).userDao();
-
             AsyncTask.execute(() -> userDao.insertUser(new UserEntity("Hugo1307", "Hugo", "Gonçalves", "hugogoncalves13@ua.pt", "boatarde", 58d, 163, 21.4, 0)));
 
             login(username, password);
@@ -69,6 +68,17 @@ public class LoginActivity extends AppCompatActivity {
 
             sharedPreferencesHandler.setPreferenceString(getString(R.string.username_preference), username);
             sharedPreferencesHandler.setPreferenceString(getString(R.string.user_type_preference), UserType.TRAINEE.name());
+
+            startActivity(mainActivityIntent);
+            finish();
+
+        } else if (username.equals("HugoTrainer") && password.equals("boatarde")) {
+
+            Intent mainActivityIntent = new Intent(this, MainActivity.class);
+            SharedPreferencesHandler sharedPreferencesHandler = new SharedPreferencesHandler(getApplicationContext());
+
+            sharedPreferencesHandler.setPreferenceString(getString(R.string.username_preference), username);
+            sharedPreferencesHandler.setPreferenceString(getString(R.string.user_type_preference), UserType.TRAINER.name());
 
             startActivity(mainActivityIntent);
             finish();

@@ -63,7 +63,7 @@ public class CameraUtils {
 
             Bitmap mediaImageBitmap = BitmapUtils.toBitmap(mediaImage);
             Bitmap mutableBitmap = BitmapUtils.toMutableBitmap(mediaImageBitmap);
-            Bitmap rotatedMutableBitmap = BitmapUtils.rotateBitmap(mutableBitmap, 270);
+            Bitmap rotatedMutableBitmap = BitmapUtils.rotateBitmap(mutableBitmap, -90);
 
             InputImage image = InputImage.fromMediaImage(mediaImage, imageProxy.getImageInfo().getRotationDegrees());
 
@@ -83,6 +83,7 @@ public class CameraUtils {
                         // Mark points in image
                         if (poseDetectorHandler.isShowingLandmarks()) {
                             pose.getAllPoseLandmarks().forEach(poseLandmark -> BitmapUtils.markPointBlue(rotatedMutableBitmap, poseLandmark));
+                            BitmapUtils.markPointRed(rotatedMutableBitmap, poseDetectorHandler.getWorstLandmark());
                         }
 
                         cameraFrame.setImageBitmap(rotatedMutableBitmap);

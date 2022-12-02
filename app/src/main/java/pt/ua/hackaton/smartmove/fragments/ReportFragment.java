@@ -41,6 +41,7 @@ public class ReportFragment extends Fragment {
 
     private ReportsViewModel reportsViewModel;
     private WorkoutPlanRecyclerViewAdapter workoutPlanRecyclerViewAdapter;
+    private ExerciseReportsViewAdapter exerciseReportsViewAdapter;
 
     public ReportFragment() { }
 
@@ -130,7 +131,7 @@ public class ReportFragment extends Fragment {
             adapter.notifyItemChanged(position);
 
             reportsViewModel.getDailyExerciseReports(6-position).observe(getViewLifecycleOwner(), exerciseReportEntities -> {
-                // setupTraineeExercisesOverviewRecyclerView(view, exerciseReportEntities);
+                setupTraineeExercisesOverviewRecyclerView(view, exerciseReportEntities);
             });
 
             updateViewWithAggregations(view, 6-position);

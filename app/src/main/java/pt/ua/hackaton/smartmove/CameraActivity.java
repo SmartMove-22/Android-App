@@ -32,6 +32,7 @@ import pt.ua.hackaton.smartmove.handlers.PoseDetectorHandler;
 import pt.ua.hackaton.smartmove.permissions.CameraPermission;
 import pt.ua.hackaton.smartmove.utils.CameraUtils;
 import pt.ua.hackaton.smartmove.utils.ExerciseCategory;
+import pt.ua.hackaton.smartmove.utils.PoseLandmarkTypeMapping;
 import pt.ua.hackaton.smartmove.viewmodels.PoseDetectorViewModel;
 
 public class CameraActivity extends AppCompatActivity {
@@ -93,6 +94,25 @@ public class CameraActivity extends AppCompatActivity {
         poseDetectorViewModel.getExerciseProgress().observe(this, value -> {
             TextView exerciseProgressTextView = findViewById(R.id.cameraProgressCardText);
             exerciseProgressTextView.setText(decimalFormat.format(value) + "%");
+        });
+
+        poseDetectorViewModel.getExerciseTip().observe(this, tip -> {
+            TextView exerciseTips = findViewById(R.id.exerciseTips);
+            exerciseTips.setText(tip);
+        });
+
+        poseDetectorViewModel.getExerciseReadyToStart().observe(this, isReadyToStart -> {
+
+            TextView cameraExerciseStatus = findViewById(R.id.cameraExerciseStatusPlaceholder);
+
+            if (isReadyToStart) {
+                cameraExerciseStatus.setText("Ready to start!");
+                cameraExerciseStatus.setTextColor(0xFF4CAF50);
+            } else {
+                cameraExerciseStatus.setText("Not ready to start!");
+                cameraExerciseStatus.setTextColor(0xFFC80F0F);
+            }
+
         });
 
     }
@@ -165,19 +185,28 @@ public class CameraActivity extends AppCompatActivity {
                     return;
                 }
 
+                PoseLandmarkTypeMapping poseLandmarkTypeMapping = PoseLandmarkTypeMapping.fromPoseLandmarkId(poseDetectorHandler.getWorstLandmark().getLandmarkType());
                 double correctnessPercentage = exerciseAnalysisResponseBody.getCorrectness() * 100;
                 double progressPercentage = exerciseAnalysisResponseBody.getProgress() * 100;
+
+                poseDetectorHandler.setFirstHalf(exerciseAnalysisResponseBody.isFirstHalf());
+                poseDetectorHandler.setWorstLandmark(exerciseAnalysisResponseBody.getWorstMiddleLandmark());
+
+                if (correctnessPercentage > 50 && progressPercentage < 30 && !poseDetectorHandler.isReadyToStart()) {
+                    poseDetectorHandler.setReadyToStart(true);
+                    poseDetectorViewModel.getExerciseReadyToStart().postValue(poseDetectorHandler.isReadyToStart());
+                }
 
                 poseDetectorViewModel.getCurrentPose().postValue(poseDetectorHandler.getCurrentPose());
                 poseDetectorViewModel.getExerciseCorrectness().postValue(correctnessPercentage);
                 poseDetectorViewModel.getExerciseProgress().postValue(progressPercentage);
 
-                if (exerciseAnalysisResponseBody.isFinishedRepetition()) {
+                poseDetectorViewModel.getExerciseTip().postValue(String.format("Please, try to adjust your %s!", poseLandmarkTypeMapping != null ? poseLandmarkTypeMapping.getLandmarkText() : "Unknown"));
+
+                if (exerciseAnalysisResponseBody.isFinishedRepetition() && poseDetectorHandler.isReadyToStart()) {
                     int repetitions = Optional.ofNullable(poseDetectorViewModel.getExerciseRepetitions().getValue()).orElse(0);
                     poseDetectorViewModel.getExerciseRepetitions().postValue(repetitions+1);
                 }
-
-                poseDetectorHandler.setFirstHalf(exerciseAnalysisResponseBody.isFirstHalf());
 
             }
 
