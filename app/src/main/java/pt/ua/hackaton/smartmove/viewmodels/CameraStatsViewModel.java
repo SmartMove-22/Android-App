@@ -1,15 +1,23 @@
-package pt.ua.hackaton.smartmove.models;
+package pt.ua.hackaton.smartmove.viewmodels;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class CameraStatsViewModel extends ViewModel {
 
-    MutableLiveData<Long> totalMeasurementsCount = new MutableLiveData<>(0l);
-    MutableLiveData<Double> totalCorrectness = new MutableLiveData<>(0d);
-    MutableLiveData<Double> totalCalories = new MutableLiveData<>(0d);
-    MutableLiveData<Integer> repetitionsCount = new MutableLiveData<>(0);
-    MutableLiveData<Boolean> exerciseHalf = new MutableLiveData<>(false);
+    private final MutableLiveData<Long> totalMeasurementsCount;
+    private final MutableLiveData<Double> totalCorrectness;
+    private final MutableLiveData<Double> totalCalories;
+    private final MutableLiveData<Integer> repetitionsCount;
+    private final MutableLiveData<Boolean> exerciseHalf;
+
+    public CameraStatsViewModel() {
+        this.totalMeasurementsCount = new MutableLiveData<>(0L);
+        this.totalCorrectness = new MutableLiveData<>(0d);
+        this.totalCalories = new MutableLiveData<>(0d);
+        this.repetitionsCount = new MutableLiveData<>(0);
+        this.exerciseHalf = new MutableLiveData<>(false);
+    }
 
     public MutableLiveData<Long> getTotalMeasurementsCount() {
         return totalMeasurementsCount;

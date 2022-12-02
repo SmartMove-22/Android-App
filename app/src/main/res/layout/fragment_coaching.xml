@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CoachingFragment">
+    tools:context=".fragments.CoachingFragment">
 
 
     <Button
@@ -78,7 +78,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/poppins"
-        android:text="Hugo"
+        android:text="Daniela Dias"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/poppins_light"
-        android:text="hugogoncalves13@ua.pt"
+        android:text="ddias@ua.pt"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/coatchUsernamePlaceholder"
@@ -137,7 +137,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/loginMainCardImageView"
+                android:id="@+id/exerciseCardImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"

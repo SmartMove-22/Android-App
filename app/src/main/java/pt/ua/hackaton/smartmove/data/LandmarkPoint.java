@@ -33,7 +33,7 @@ public class LandmarkPoint {
     }
 
     public static LandmarkPoint fromPoseLandmark(PoseLandmark poseLandmark) {
-        return new LandmarkPoint(poseLandmark.getLandmarkType(), poseLandmark.getPosition3D().getX(), poseLandmark.getPosition3D().getY(), poseLandmark.getPosition3D().getZ());
+        return new LandmarkPoint(poseLandmark.getLandmarkType(), poseLandmark.getPosition().x, poseLandmark.getPosition().y, 0);
     }
 
 }

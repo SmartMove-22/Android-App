@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class ExerciseAnalysisResponse {
 
-    private double correctness;
-    private double progress;
+    private final double correctness;
+    private final double progress;
 
     @SerializedName("finished_repetition")
-    private boolean finishedRepetition;
+    private final boolean finishedRepetition;
 
     @SerializedName("first_half")
-    private boolean firstHalf;
+    private final boolean firstHalf;
 
     @SerializedName("most_divergent_angle_landmark_middle")
     private int worstMiddleLandmark;

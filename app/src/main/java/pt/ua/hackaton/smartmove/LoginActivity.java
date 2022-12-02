@@ -5,14 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import pt.ua.hackaton.smartmove.utils.ApiUtils;
+import pt.ua.hackaton.smartmove.data.database.AppDatabase;
+import pt.ua.hackaton.smartmove.data.database.dao.UserDao;
+import pt.ua.hackaton.smartmove.data.database.entities.UserEntity;
+import pt.ua.hackaton.smartmove.utils.SharedPreferencesHandler;
+import pt.ua.hackaton.smartmove.utils.UserType;
 
 public class LoginActivity extends AppCompatActivity {
+
+    UserDao userDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
             this.getSupportActionBar().hide();
         }
 
-        ImageView imageView = (ImageView)findViewById(R.id.loginMainCardImageView);
+        ImageView imageView = (ImageView)findViewById(R.id.exerciseCardImageView);
         imageView.setColorFilter(Color.GRAY, PorterDuff.Mode.DARKEN);
 
         findViewById(R.id.loginBtn).setOnClickListener(view -> {
@@ -43,6 +50,9 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
+            userDao = AppDatabase.getInstance(getApplicationContext()).userDao();
+            AsyncTask.execute(() -> userDao.insertUser(new UserEntity("Hugo1307", "Hugo", "Gonçalves", "hugogoncalves13@ua.pt", "boatarde", 58d, 163, 21.4, 0)));
+
             login(username, password);
         });
 
@@ -50,25 +60,33 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(final String username, final String password) {
-        ApiUtils.authenticate(this, username, password,
-                () -> {
-                    Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
 
-                    Intent myIntent = new Intent(this, MainActivity.class);
+        if (username.equals("Hugo1307") && password.equals("boatarde")) {
 
-                    if (username.equals("fitgod")) {
-                        myIntent.putExtra("user_type", "TRAINEE");
-                    } else if (username.equals("sensei")) {
-                        myIntent.putExtra("user_type", "COACH");
-                    }
+            Intent mainActivityIntent = new Intent(this, MainActivity.class);
+            SharedPreferencesHandler sharedPreferencesHandler = new SharedPreferencesHandler(getApplicationContext());
 
-                    this.startActivity(myIntent);
-                    finish();
-                },
-                () -> {
-                    Toast.makeText(this, "Wrong Credentials!", Toast.LENGTH_SHORT).show();
-                }
-        );
+            sharedPreferencesHandler.setPreferenceString(getString(R.string.username_preference), username);
+            sharedPreferencesHandler.setPreferenceString(getString(R.string.user_type_preference), UserType.TRAINEE.name());
+
+            startActivity(mainActivityIntent);
+            finish();
+
+        } else if (username.equals("HugoTrainer") && password.equals("boatarde")) {
+
+            Intent mainActivityIntent = new Intent(this, MainActivity.class);
+            SharedPreferencesHandler sharedPreferencesHandler = new SharedPreferencesHandler(getApplicationContext());
+
+            sharedPreferencesHandler.setPreferenceString(getString(R.string.username_preference), username);
+            sharedPreferencesHandler.setPreferenceString(getString(R.string.user_type_preference), UserType.TRAINER.name());
+
+            startActivity(mainActivityIntent);
+            finish();
+
+        } else {
+            Toast.makeText(this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

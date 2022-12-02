@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,7 +63,7 @@ public class TraineesOverviewRecyclerViewAdapter extends RecyclerView.Adapter<Tr
 
             exerciseNameTextView = itemView.findViewById(R.id.performedExerciseNameTextView);
             completeExerciseTextView = itemView.findViewById(R.id.performedExerciseCompletedTextView);
-            performanceTextView = itemView.findViewById(R.id.performedExercisePerformanceTextView);
+            performanceTextView = itemView.findViewById(R.id.performedExerciseTimeTextView);
             caloriesBurnTextView = itemView.findViewById(R.id.performedExerciseCaloriesTextView);
             correctnessTextView = itemView.findViewById(R.id.performedExerciseCorrectnessTextView);
 

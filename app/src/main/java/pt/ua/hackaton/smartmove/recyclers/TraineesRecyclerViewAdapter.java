@@ -1,6 +1,5 @@
 package pt.ua.hackaton.smartmove.recyclers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import pt.ua.hackaton.smartmove.CoachAddExercisesFragment;
-import pt.ua.hackaton.smartmove.CoachTraineeOverviewFragment;
+import pt.ua.hackaton.smartmove.fragments.CoachAddExercisesFragment;
+import pt.ua.hackaton.smartmove.fragments.CoachTraineeOverviewFragment;
 import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.Trainee;
 

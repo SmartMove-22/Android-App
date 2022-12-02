@@ -1,14 +1,19 @@
 package pt.ua.hackaton.smartmove;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import pt.ua.hackaton.smartmove.fragments.CoachTraineesFragment;
+import pt.ua.hackaton.smartmove.fragments.CoachingFragment;
+import pt.ua.hackaton.smartmove.fragments.ReportFragment;
+import pt.ua.hackaton.smartmove.fragments.UserProfileFragment;
+import pt.ua.hackaton.smartmove.fragments.WorkoutsFragment;
+import pt.ua.hackaton.smartmove.utils.SharedPreferencesHandler;
+import pt.ua.hackaton.smartmove.utils.UserType;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,21 +28,15 @@ public class MainActivity extends AppCompatActivity {
             this.getSupportActionBar().hide();
         }
 
-        /*
-        findViewById(R.id.startCameraBtn).setOnClickListener(view -> {
-            Intent myIntent = new Intent(MainActivity.this, CameraActivity.class);
-            MainActivity.this.startActivity(myIntent);
-        });
-        */
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
-            String userType = getIntent().getStringExtra("user_type");
+            SharedPreferencesHandler sharedPreferencesHandler = new SharedPreferencesHandler(getApplicationContext());
+            UserType userType = UserType.valueOf(sharedPreferencesHandler.getPreferenceString(getString(R.string.user_type_preference), UserType.TRAINEE.name()));
 
-            if (userType.equals("TRAINEE")) {
+            if (userType == UserType.TRAINEE) {
 
                 if (item.getItemId() == R.id.workouts_menu_item) {
                     fragmentManager.beginTransaction()
@@ -58,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
                             .replace(R.id.fragmentContainerView, ReportFragment.class, null)
                             .setReorderingAllowed(true)
                             .addToBackStack("report_fragment")
+                            .commit();
+                    return true;
+                } else if (item.getItemId() == R.id.profile_menu_item) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, UserProfileFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("user_profile_fragment")
                             .commit();
                     return true;
                 }

@@ -1,6 +1,5 @@
-package pt.ua.hackaton.smartmove.models;
+package pt.ua.hackaton.smartmove.viewmodels;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 

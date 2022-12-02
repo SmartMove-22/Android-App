@@ -1,4 +1,4 @@
-package pt.ua.hackaton.smartmove;
+package pt.ua.hackaton.smartmove.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import pt.ua.hackaton.smartmove.CameraActivity;
+import pt.ua.hackaton.smartmove.R;
 import pt.ua.hackaton.smartmove.data.Exercise;
 import pt.ua.hackaton.smartmove.recyclers.SuggestedExercisesRecyclerViewAdapter;
 
@@ -79,9 +81,9 @@ public class CoachAddExercisesFragment extends Fragment {
 
         // data to populate the RecyclerView with
         List<Exercise> exercisesNames = new ArrayList<>();
-        exercisesNames.add(new Exercise(1, null, "Chest Muscles", null, 1,1,300));
-        exercisesNames.add(new Exercise(1, null, "Abdominal Muscles", null, 1,1,300));
-        exercisesNames.add(new Exercise(1, null, "Push Ups", null, 1,1,300));
+        exercisesNames.add(new Exercise(1, null, "Chest Muscles", null, 1,1,300, R.drawable.lift_weight));
+        exercisesNames.add(new Exercise(1, null, "Abdominal Muscles", null, 1,1,300, R.drawable.lift_weight));
+        exercisesNames.add(new Exercise(1, null, "Push Ups", null, 1,1,300, R.drawable.lift_weight));
 
         setupSuggestedExerciseRecyclerView(view, exercisesNames);
 

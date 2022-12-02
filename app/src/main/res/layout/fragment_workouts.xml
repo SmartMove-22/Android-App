@@ -4,12 +4,199 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WorkoutsFragment">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.WorkoutsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view"
+            style="@style/MyCardView"
+            android:layout_width="323dp"
+            android:layout_height="225dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/topBarComponent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="204dp">
+
+                <TextView
+                    android:id="@+id/mainPanelStepsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Exercising Time"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:typeface="normal"
+                    card_view:layout_constraintStart_toEndOf="@+id/stepsVerticalDiv"
+                    card_view:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/mainPanelDistanceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="28dp"
+                    android:text="Calories Burn"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:typeface="normal"
+                    card_view:layout_constraintStart_toEndOf="@+id/distanceVerticalDiv"
+                    card_view:layout_constraintTop_toBottomOf="@+id/userFragmentBMIPlaceholder" />
+
+                <TextView
+                    android:id="@+id/mainPanelDistanceLabel2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:text="kcal"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
+                    android:textSize="10sp"
+                    android:typeface="normal"
+                    card_view:layout_constraintStart_toEndOf="@+id/userFragmentWeightPlaceholder"
+                    card_view:layout_constraintTop_toBottomOf="@+id/mainPanelDistanceLabel" />
+
+                <TextView
+                    android:id="@+id/mainPanelTimeUnitLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:text="seconds"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
+                    android:textSize="10sp"
+                    android:typeface="normal"
+                    app:layout_constraintStart_toEndOf="@+id/userFragmentBMIPlaceholder"
+                    app:layout_constraintTop_toBottomOf="@+id/mainPanelStepsLabel" />
+
+                <TextView
+                    android:id="@+id/userFragmentWeightPlaceholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="2dp"
+                    android:text="56"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    card_view:layout_constraintStart_toEndOf="@+id/distanceVerticalDiv"
+                    card_view:layout_constraintTop_toBottomOf="@+id/mainPanelDistanceLabel" />
+
+                <TextView
+                    android:id="@+id/userFragmentBMIPlaceholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="2dp"
+                    android:text="25"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    card_view:layout_constraintStart_toEndOf="@+id/stepsVerticalDiv"
+                    card_view:layout_constraintTop_toBottomOf="@+id/mainPanelStepsLabel" />
+
+                <ProgressBar
+                    android:id="@+id/progressBarCaloriesLeft"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="115dp"
+                    android:layout_height="115dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:max="100"
+                    android:progress="50"
+                    android:progressDrawable="@drawable/custom_progress"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/horizontalSeparator"
+                    style="@style/Divider"
+                    android:layout_marginTop="30dp"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintHorizontal_bias="0.0"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toBottomOf="@+id/userFragmentWeightPlaceholder" />
+
+                <View
+                    android:id="@+id/stepsVerticalDiv"
+                    style="@style/StartVerticalBar"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="12dp"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/distanceVerticalDiv"
+                    style="@style/StartVerticalBar"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="77dp"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/mainDashboardCaloriesLeftPlaceholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="600"
+                    android:textColor="@color/yellow"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    card_view:layout_constraintEnd_toEndOf="@+id/progressBarCaloriesLeft"
+                    card_view:layout_constraintStart_toStartOf="@+id/progressBarCaloriesLeft"
+                    card_view:layout_constraintTop_toTopOf="@+id/progressBarCaloriesLeft" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Calories Left"
+                    android:textSize="10sp"
+                    card_view:layout_constraintEnd_toEndOf="@+id/progressBarCaloriesLeft"
+                    card_view:layout_constraintStart_toStartOf="@+id/progressBarCaloriesLeft"
+                    card_view:layout_constraintTop_toBottomOf="@+id/mainDashboardCaloriesLeftPlaceholder" />
+
+                <ImageView
+                    android:id="@+id/walkingStatusImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/app_icon_black"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toBottomOf="@+id/horizontalSeparator" />
+
+                <TextView
+                    android:id="@+id/todayImprovementPlaceholder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="Only more 500 steps left!"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textStyle="bold"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintStart_toEndOf="@+id/walkingStatusImage"
+                    card_view:layout_constraintTop_toBottomOf="@+id/horizontalSeparator" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <include
             android:id="@+id/topBarComponent"
@@ -21,48 +208,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/todayWorkoutTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppins"
-            android:text="Today Workout Plan"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/topBarComponent" />
-
-        <TextView
             android:id="@+id/suggestedExercisesTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             android:fontFamily="@font/poppins"
             android:text="Suggested Exercises"
             android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dailyWorkoutPlanConstraintLayout" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/dailyWorkoutPlanConstraintLayout"
-            android:layout_width="364dp"
-            android:layout_height="220dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/todayWorkoutTextView">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/workoutPlanRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layout_editor_absoluteX="10dp"
-                tools:layout_editor_absoluteY="10dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/card_view" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/suggestedExercisesConstraintLayout"
@@ -79,9 +236,12 @@
                 android:id="@+id/suggestedExercisesRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:layout_editor_absoluteX="1dp"
-                tools:layout_editor_absoluteY="1dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

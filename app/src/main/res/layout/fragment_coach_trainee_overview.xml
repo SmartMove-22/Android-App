@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CoachTraineeOverviewFragment">
+    tools:context=".fragments.CoachTraineeOverviewFragment">
 
     <TextView
         android:id="@+id/textView11"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:fontFamily="@font/poppins"
-        android:text="70 kg"
+        android:text="72 kg"
         android:textColor="@color/black"
         android:textSize="13sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/coachTraineeOverviewUsername2"
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins"
-        android:text="182 cm"
+        android:text="184 cm"
         android:textColor="@color/black"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@+id/coachTraineeOverviewWeight"
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/poppins"
-        android:text="Hugo Gonçalves"
+        android:text="Martinho Tavares"
         android:textColor="@color/black"
         android:textSize="13sp"
         app:layout_constraintStart_toEndOf="@+id/cardView"
@@ -113,7 +113,7 @@
         app:layout_constraintTop_toBottomOf="@+id/topBarComponent">
 
         <ImageView
-            android:id="@+id/loginMainCardImageView"
+            android:id="@+id/exerciseCardImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"

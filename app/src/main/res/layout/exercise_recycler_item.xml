@@ -34,7 +34,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/loginMainCardImageView"
+                android:id="@+id/exerciseCardImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -43,7 +43,7 @@
                 app:srcCompat="@drawable/lift_weight" />
 
             <TextView
-                android:id="@+id/cameraExerciseNameTxt"
+                android:id="@+id/exerciseCardNameTxt"
                 android:layout_width="192dp"
                 android:layout_height="81dp"
                 android:layout_marginStart="16dp"
@@ -53,7 +53,7 @@
                 android:textColor="@color/white"
                 android:textSize="26sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/loginMainCardImageView" />
+                app:layout_constraintTop_toTopOf="@+id/exerciseCardImageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
